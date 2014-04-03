@@ -76,14 +76,14 @@ public class MainActivity extends ActionBarActivity {
 	public void startAR(View view) {
 		CustomARSetup custom = new CustomARSetup();
 		custom.context = mainActivity;
-		custom.activeTourID = R.raw.tour_aditya;
+		custom.setTour(R.raw.tour_aditya);
 		ArActivity.startWithSetup(MainActivity.this, custom); 
 	}
 	
 	public void startAR2(View view) {
 		CustomARSetup custom = new CustomARSetup();
 		custom.context = mainActivity;
-		custom.activeTourID = R.raw.tour_tristan;
+		custom.setTour(R.raw.tour_tristan);
 		ArActivity.startWithSetup(MainActivity.this, custom); 
 	}
 
