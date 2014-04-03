@@ -1,0 +1,42 @@
+<data>
+	<meta>
+		<id>2</id>
+		<name>Test Tour Aditya</name>
+		<info>Info for Aditya's Test Tour</info>
+		<size>4</size>
+	</meta>
+	
+	<tour>
+		<poi>
+			<name>Balcony</name>
+			<latitude>12.914656557</latitude>
+			<longitude>77.672039236</longitude>
+			<info>Some Test Data \n\n\n\n Some More Lines\n\n\n\n\n\n\n\n\n\n\n Test \n\n\n\n\n A really really really really really really really really really really really really really really really really really long sentence</info>
+			<hashtags>"Alps"</hashtags>
+		</poi>
+	
+		<poi>
+			<name>Alps Corner</name>
+			<latitude>12.915122</latitude>
+			<longitude>77.671562</longitude>
+			<info>Alps Estate BL Corner</info>
+			<hashtags></hashtags>
+		</poi>
+		
+		<poi>
+			<name>Alps Corner 2</name>
+			<latitude>12.914659</latitude>
+			<longitude>77.672289</longitude>
+			<info>Alps Estate BR Corner</info>
+			<hashtags>blabla</hashtags>
+		</poi>
+		<poi>
+			<name>Lake</name>
+			<latitude>12.916228</latitude>
+			<longitude>77.673200</longitude>
+			<info>Kaikondrahalli Lake</info>
+			<hashtags>Lake</hashtags>
+		</poi>
+		
+	</tour>
+	</data>	

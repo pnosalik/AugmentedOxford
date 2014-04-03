@@ -26,11 +26,10 @@ import android.location.Location;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-
-import com.example.augox.R;
 import commands.Command;
 
 public class CustomARSetup extends Setup {
+	public int activeTourID; //set by caller module
 	private Tour theActiveTour;
 	private Poi theCurrentPoi;
 	
@@ -52,6 +51,15 @@ public class CustomARSetup extends Setup {
 	
 	public CustomARSetup(){
 		
+	}
+	
+	public void setTour(int id) {
+		activeTourID = id;
+		theActiveTour =  new Tour(context.getResources().openRawResource(activeTourID));
+	}
+	
+	public void setTour(Tour tour) {
+		theActiveTour =  tour;
 	}
 	
 	@Override
@@ -76,7 +84,12 @@ public class CustomARSetup extends Setup {
 		*/
 	
 		distanceInfo = new TextView(getActivity());
-		Tour tour = new Tour(context.getResources().openRawResource(R.raw.tour_1));
+		
+		//PRECONDITION: setTour(int) or setTour(Tour) has already been called before creating this Setup
+		
+		Tour tour = theActiveTour;
+		
+		//Tour tour = new Tour(context.getResources().openRawResource(activeTourID));
 		List<Poi> poisTest = tour.getAllPois();
 		System.out.println("TourData");
 		System.out.println("ID: "+tour.getID());
@@ -91,7 +104,8 @@ public class CustomARSetup extends Setup {
 			System.out.println("Info: "+poisTest.get(i).getInfo());
 			if (poisTest.get(i).getDataSource()!=null) System.out.println("HashTags: "+poisTest.get(i).getDataSource().getSearchString());
 		}
-		theActiveTour = tour;
+		//theActiveTour = tour;
+		distanceInfo.setText("Tour loaded: " + tour.getName());
 	
 	}
 	
@@ -132,7 +146,7 @@ public class CustomARSetup extends Setup {
 	}
 	
 	private void displayInfo(String name, String info) {
-		final TextView v = (TextView)View.inflate(getActivity(), com.example.augox.R.layout.poi_layout, null);
+		final TextView v = (TextView)View.inflate(getActivity(), R.layout.poi_layout, null);
 		v.setText(name + "\n" + info);
 		v.setTextColor(Color.white().toIntARGB());
 		v.setBackgroundColor(Color.blueTransparent().toIntARGB());
@@ -193,7 +207,11 @@ public class CustomARSetup extends Setup {
 				//Location l = world.getMyCamera().getGPSLocation();
 				Location l = GeoUtils.getCurrentLocation(getActivity());
 				Float distance = l.distanceTo(nextLocation);
-				distanceInfo.setText("Next location: " + nextPlace + ", Distance: " + distance +"m");
+				distanceInfo.setText(
+						"Current location: Lat: " + l.getLatitude() + " Long: " + l.getLongitude() +
+						"Next location: " + nextPlace + " Lat: " + nextLocation.getLatitude() + " long: " + nextLocation.getLongitude() +
+						" Distance: " + distance +" m");
+				//distanceInfo.setText("Next location: " + nextPlace + ", Distance: " + distance +"m");
 				return true; //So that it is never removed from the list
 			}
 			

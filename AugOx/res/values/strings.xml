@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">AugOx</string>
+    <string name="app_name">Augmented Oxford</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_info_screen">InfoScreen</string>
-
+    <string name="title_activity_info_screen">Info Screen</string>
+    <string name="button_start">Start AR</string>
+    <string name="button_tour_selection">Tour Selection</string>
+    <string name="title_activity_tour_selection">Tour Selection</string>
+    <string name="text_nodata">No Data</string>
+    <string name="title_tour_list">Tours</string>
+    <string name="title_tour_detail">Tour Detail</string>
+	<string name="text_tour_detail_heading_pois">Points of interest on this tour:</string>
+	<string name="text_tour_detail_button_start">Start Tour</string>
+    
 </resources>

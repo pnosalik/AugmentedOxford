@@ -1,7 +1,5 @@
 package ox.augmented;
 
-import com.example.augox.R;
-
 import geo.GeoObj;
 import gl.GL1Renderer;
 import gl.GLFactory;
@@ -9,6 +7,7 @@ import system.ArActivity;
 import system.DefaultARSetup;
 import util.Vec;
 import worldData.World;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -26,16 +25,30 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// view components for this activity are now coded into fragment_main.xml
+		setContentView(R.layout.activity_main);
+		if (savedInstanceState == null) {
+			getSupportFragmentManager().beginTransaction()
+			.add(R.id.container, new PlaceholderFragment()).commit();
+		}
+	}
+				
+		/*
 		Button b = new Button(this);
 		b.setText("Start AR");
 		b.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				CustomARSetup custom = new CustomARSetup();
+				CustomARSetup custom = new CustomARSetup(R.raw.tour_aditya);
 				custom.context = mainActivity;
-				ArActivity.startWithSetup(MainActivity.this, custom); /*{
-
+				ArActivity.startWithSetup(MainActivity.this, custom); 
+				
+		*/
+		
+				
+				/*{
+					
 					@Override
 					public void addObjectsTo(GL1Renderer renderer, World world,
 							GLFactory objectFactory) {
@@ -52,13 +65,35 @@ public class MainActivity extends ActionBarActivity {
 						world.add(objectFactory.newSolarSystem(new Vec(10,0,0)));
 					}					
 					
-				});*/
+				});
 			}
 		});
-		setContentView(b);
 
 	}
+	*/
 
+	// method called by Start AR button, loading ArActivity with custom Setup and one of the tours
+	public void startAR(View view) {
+		CustomARSetup custom = new CustomARSetup();
+		custom.context = mainActivity;
+		custom.activeTourID = R.raw.tour_aditya;
+		ArActivity.startWithSetup(MainActivity.this, custom); 
+	}
+	
+	public void startAR2(View view) {
+		CustomARSetup custom = new CustomARSetup();
+		custom.context = mainActivity;
+		custom.activeTourID = R.raw.tour_tristan;
+		ArActivity.startWithSetup(MainActivity.this, custom); 
+	}
+
+	// method called by Tour Selection button, loading tour selection screen.
+	public void tourSelection(View view) {
+	Intent intent = new Intent(this, TourListActivity.class);
+	startActivity(intent);
+	}
+
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -79,6 +114,20 @@ public class MainActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * A placeholder fragment containing a simple view.
+	 * */
+	public static class PlaceholderFragment extends Fragment {
 	
+		public PlaceholderFragment() {
+		
+		}
+		
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+			return rootView;
+		}
+	}	
 
 }
