@@ -1,0 +1,51 @@
+<data>
+	<meta>
+		<id>1</id>
+		<name>Test Tour Sofia</name>
+		<info>Some info</info>
+		<size>5</size>
+	</meta>
+	
+	<tour>
+		<poi>
+			<name>Home</name>
+			<latitude>42.703971</latitude>
+			<longitude>23.369185</longitude>
+			<info>Some Test Data \n\n\n\n Some More Lines\n\n\n\n\n\n\n\n\n\n\n Test \n\n\n\n\n A really really really really really really really really really really really really really really really really really long sentence</info>
+			<hashtags>"Tristan's Room"</hashtags>
+		</poi>
+	
+		<poi>
+			<name>Vesi</name>
+			<latitude>42.706066</latitude>
+			<longitude>23.368703</longitude>
+			<info>My old school</info>
+			<hashtags></hashtags>
+		</poi>
+		
+		<poi>
+			<name>Fantastiko</name>
+			<latitude>42.704753</latitude>
+			<longitude>23.367389</longitude>
+			<info>Some public road</info>
+			<hashtags>Fant</hashtags>
+		</poi>
+		
+		<poi>
+			<name>Desi</name>
+			<latitude>42.703820</latitude>
+			<longitude>23.359130</longitude>
+			<info>Tristan's house</info>
+			<hashtags>blabla</hashtags>
+		</poi>
+		
+		<poi>
+			<name>Baba</name>
+			<latitude>42.703820</latitude>
+			<longitude>23.359130</longitude>
+			<info>Ben's house</info>
+			<hashtags>abc</hashtags>
+		</poi>
+		
+	</tour>
+	</data>	
