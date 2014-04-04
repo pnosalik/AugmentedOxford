@@ -81,7 +81,12 @@ public class LocalFileSource implements TourSource {
 		/** Try reading the files one by one */
 		do {
 			loadedFiles.remove(0);
-			t = TourXmlParser.parseFile(f);
+			try {
+				t = new Tour(new FileInputStream(f));
+			} catch (FileNotFoundException e) {
+				t = null;
+				e.printStackTrace();
+			}
 		} while (t != null && !loadedFiles.isEmpty());
 		return t;
 	}
