@@ -1,6 +1,7 @@
 # AugmentedOxford
 
 ## Tour XML format
+```
 <data>
 	<meta>
 		<id></id>
@@ -26,8 +27,10 @@
 		</poi>
 	</tour>
 </data>
+```
 
 ### Example:
+```
 <data>
 	<meta>
 		<id>1</id>
@@ -54,3 +57,4 @@
 		</poi>
 	</tour>	
 </data>
+```
