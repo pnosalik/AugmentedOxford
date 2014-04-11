@@ -8,7 +8,7 @@ import java.io.*;
 
 import android.content.Context;
 import android.os.Environment;
-import ox.augmented.Tour;
+import ox.augmented.model.Tour;
 
 public class LocalFileSource implements TourSource {
 	/** Whether we read from the SD card or from internal device memory */
@@ -82,7 +82,7 @@ public class LocalFileSource implements TourSource {
 		do {
 			loadedFiles.remove(0);
 			try {
-				t = new Tour(new FileInputStream(f));
+				t = TourCreator.parseXml(new FileInputStream(f));
 			} catch (FileNotFoundException e) {
 				t = null;
 				e.printStackTrace();

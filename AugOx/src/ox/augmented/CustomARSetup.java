@@ -11,6 +11,9 @@ import gui.GuiSetup;
 
 import java.util.List;
 
+import ox.augmented.data.TourCreator;
+import ox.augmented.model.Poi;
+import ox.augmented.model.Tour;
 import system.EventManager;
 import system.Setup;
 import util.Log;
@@ -55,7 +58,7 @@ public class CustomARSetup extends Setup {
 	
 	public void setTour(int id) {
 		activeTourID = id;
-		theActiveTour =  new Tour(context.getResources().openRawResource(activeTourID));
+		theActiveTour =  TourCreator.parseXml(context.getResources().openRawResource(activeTourID));
 	}
 	
 	public void setTour(Tour tour) {

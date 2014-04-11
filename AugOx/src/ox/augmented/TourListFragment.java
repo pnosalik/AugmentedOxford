@@ -3,6 +3,9 @@ package ox.augmented;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import ox.augmented.data.TourCreator;
+import ox.augmented.model.Poi;
+import ox.augmented.model.Tour;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -83,8 +86,8 @@ public class TourListFragment extends ListFragment {
 		tourList = new ArrayList<Tour>();
 		tourNameList = new ArrayList<String>();
 		Tour[] tour = new Tour[3];
-		tour[0] = new Tour(this.getResources().openRawResource(R.raw.tour_aditya));
-		tour[1] = new Tour(this.getResources().openRawResource(R.raw.tour_tristan));
+		tour[0] = TourCreator.parseXml(this.getResources().openRawResource(R.raw.tour_aditya));
+		tour[1] = TourCreator.parseXml(this.getResources().openRawResource(R.raw.tour_tristan));
 		tour[2] = new Tour(new ArrayList<Poi>(), "1", "Empty tour 1", "Empty tour info 1");
 			
 		// populate the list and hash map. NOTE: currently uses tour name as key. Change later to id.

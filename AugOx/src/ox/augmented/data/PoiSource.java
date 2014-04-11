@@ -5,7 +5,7 @@ package ox.augmented.data;
 
 import java.util.List;
 
-import ox.augmented.Poi;
+import ox.augmented.model.Poi;
 
 /**
  * @author Piotr Nosalik

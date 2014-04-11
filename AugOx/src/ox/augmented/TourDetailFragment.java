@@ -2,6 +2,8 @@ package ox.augmented;
 
 import java.util.List;
 
+import ox.augmented.model.Poi;
+import ox.augmented.model.Tour;
 import system.ArActivity;
 import android.app.Activity;
 import android.os.Bundle;

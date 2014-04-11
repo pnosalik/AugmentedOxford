@@ -2,7 +2,7 @@ package ox.augmented.data;
 
 import java.util.List;
 
-import ox.augmented.Tour;
+import ox.augmented.model.Tour;
 
 /**
  * 

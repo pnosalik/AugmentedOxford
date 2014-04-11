@@ -1,4 +1,4 @@
-package ox.augmented;
+package ox.augmented.model;
 
 import ox.augmented.data.DataSource;
 

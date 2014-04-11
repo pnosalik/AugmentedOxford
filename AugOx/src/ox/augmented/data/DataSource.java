@@ -1,7 +1,7 @@
 package ox.augmented.data;
 
 import android.graphics.Bitmap;
-import ox.augmented.Poi;
+import ox.augmented.model.Poi;
 
 /**
  * 
