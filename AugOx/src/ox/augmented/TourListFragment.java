@@ -1,11 +1,18 @@
 package ox.augmented;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.xmlpull.v1.XmlPullParserException;
+
 import ox.augmented.data.TourCreator;
+import ox.augmented.data.TourCreator.TourData;
 import ox.augmented.model.Poi;
 import ox.augmented.model.Tour;
+import util.Log;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -83,20 +90,42 @@ public class TourListFragment extends ListFragment {
 		 * This processing need not be done here, in which case 
 		 * the list and hashmap of tours should be externally accessible/modifiable.
 		 */
+		
+	    Field[] fields = R.raw.class.getFields();
+	    Tour[]  tours  = new Tour[fields.length];
+	    int k 	       = 0;
+	    
+	    for(int i = 0; i < tours.length; i++) { 
+	    
+	        try {
+	        	int resourceID = fields[i].getInt(fields[i]);
+	        	String resourceName = fields[i].getName();
+	        	String parts[] = resourceName.split("_");
+	        	String resName = parts[0];
+	        	
+	        	System.out.println("*********Resource name: " + resourceName + " Resource ID: " + resourceID);
+	        	if(resName.equals("tour") && this.getResources().openRawResource(resourceID) != null)
+	        		tours[k++] = TourCreator.parseXml(this.getResources().openRawResource(resourceID));
+	    	
+			} catch(IllegalAccessException e) {
+	            Log.e("REFLECTION", String.format("%s threw IllegalAccessException.",
+	                    fields[i].getName()));
+	    	} 
+		
+	    }
+	    
 		tourList = new ArrayList<Tour>();
 		tourNameList = new ArrayList<String>();
-		Tour[] tour = new Tour[3];
-		tour[0] = TourCreator.parseXml(this.getResources().openRawResource(R.raw.tour_aditya));
-		tour[1] = TourCreator.parseXml(this.getResources().openRawResource(R.raw.tour_tristan));
-		tour[2] = new Tour(new ArrayList<Poi>(), "1", "Empty tour 1", "Empty tour info 1");
-			
+	    
 		// populate the list and hash map. NOTE: currently uses tour name as key. Change later to id.
-		for(int i = 0; i < tour.length; i++) {
-			tourList.add(tour[i]);
-			tourNameList.add(tour[i].getName());
-			tourMap.put(tour[i].getName(), tour[i]);
+		for(int i = 0; i < k; i++) {
+			tourList.add(tours[i]);
+			tourNameList.add(tours[i].getName());
+			tourMap.put(tours[i].getName(), tours[i]);
 		}
+	
 	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
