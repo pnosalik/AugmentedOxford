@@ -101,11 +101,8 @@ public class TourListFragment extends ListFragment {
 	        	int resourceID = fields[i].getInt(fields[i]);
 	        	String resourceName = fields[i].getName();
 	        	String parts[] = resourceName.split("_");
-	        	String resName = parts[0];
-	        	
-	        	System.out.println("*********Resource name: " + resourceName + " Resource ID: " + resourceID);
-	        	if(resName.equals("tour") && this.getResources().openRawResource(resourceID) != null)
-	        		tours[k++] = TourCreator.parseXml(this.getResources().openRawResource(resourceID));
+	            if(parts[0].equals("tour"))
+	       		  tours[k++] = TourCreator.parseXml(this.getResources().openRawResource(resourceID));
 	    	
 			} catch(IllegalAccessException e) {
 	            Log.e("REFLECTION", String.format("%s threw IllegalAccessException.",
