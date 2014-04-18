@@ -1,9 +1,13 @@
 package ox.augmented;
 
+import geo.GeoUtils;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -15,6 +19,7 @@ import ox.augmented.model.Tour;
 import util.Log;
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
@@ -121,6 +126,63 @@ public class TourListFragment extends ListFragment {
 			tourMap.put(tours[i].getName(), tours[i]);
 		}
 	
+	}
+	
+	// Method for sorting the list of Tours according to user preferences.
+	public void sortTours() { 
+		
+		String choice = "";
+		/* TODO: Black magic for initializing the String "choice" with the user's choice for a sorting criterion. */
+		switch (choice) { 
+		case "Alphabetical" :
+			AlphaComparator alphaComp = new AlphaComparator();
+			Collections.sort(tourList, alphaComp);
+			break;
+		case "Closest POI":
+			ProxComparator proxComp = new ProxComparator();
+			Collections.sort(tourList, proxComp);
+			break;
+		}
+		
+	}
+	
+	// Different comparator classes for sorting the list of tours according to user preferences .
+	private class AlphaComparator implements Comparator<Tour> {
+
+		@Override
+		public int compare(Tour a, Tour b) { return a.getName().compareTo(b.getName()); }
+		
+	}
+	
+	private class ProxComparator implements Comparator<Tour> {
+
+		@Override
+		public int compare(Tour a, Tour b) {
+			
+			// Setting the next POIs for the Tour "a" and the Tour "b"
+			Poi aPOI = a.getNextPoi();
+			Location aNextLocation = new Location("aNextLocation");
+			aNextLocation.setLatitude(aPOI.getLatitude());
+			aNextLocation.setLongitude(aPOI.getLongitude());
+			
+			Poi bPOI = b.getNextPoi();
+			Location bNextLocation = new Location("bNextLocation");
+			bNextLocation.setLatitude(bPOI.getLatitude());
+			bNextLocation.setLongitude(bPOI.getLongitude());
+			
+			// Calculating the distance to the closest POI for each of the tours.
+			Location l = GeoUtils.getCurrentLocation(getActivity());
+			
+			Float aDistance = l.distanceTo(aNextLocation);
+			Float bDistance = l.distanceTo(bNextLocation);
+			
+			if (aDistance > bDistance) 
+				return 1;
+			else 
+				return -1;
+			
+		}
+		
 	}
 	
 	@Override
