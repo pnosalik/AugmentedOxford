@@ -1,12 +1,6 @@
 package ox.augmented;
 
-import geo.GeoObj;
-import gl.GL1Renderer;
-import gl.GLFactory;
 import system.ArActivity;
-import system.DefaultARSetup;
-import util.Vec;
-import worldData.World;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,9 +9,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 public class MainActivity extends ActionBarActivity {
 	public MainActivity mainActivity = this;

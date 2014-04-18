@@ -2,29 +2,30 @@ package ox.augmented;
 
 import geo.GeoUtils;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
-import org.xmlpull.v1.XmlPullParserException;
-
 import ox.augmented.data.TourCreator;
-import ox.augmented.data.TourCreator.TourData;
 import ox.augmented.model.Poi;
 import ox.augmented.model.Tour;
 import util.Log;
+import android.app.ActionBar;
+import android.app.ActionBar.OnNavigationListener;
 import android.app.Activity;
-import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 /**
  * A list fragment representing a list of Tours. This fragment also supports
@@ -80,6 +81,10 @@ public class TourListFragment extends ListFragment {
 	private ArrayList<Tour> tourList;
 	private ArrayList<String> tourNameList;
 	public static HashMap<String, Tour> tourMap = new HashMap<String,Tour>();
+	
+	private String sortOrder = "Filename"; //activates default case
+	
+	private OnNavigationListener mOnNavigationListener;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -91,8 +96,7 @@ public class TourListFragment extends ListFragment {
 	/** Method to populate the local list and hash map of tours. To be called on creation, and on refreshing. */
 	public void initialiseTours() {
 		// create the list! 
-		/* TODO: generate list from XML files. 
-		 * This processing need not be done here, in which case 
+		/* This processing need not be done here, in which case 
 		 * the list and hashmap of tours should be externally accessible/modifiable.
 		 */
 		
@@ -105,6 +109,7 @@ public class TourListFragment extends ListFragment {
 	        try {
 	        	int resourceID = fields[i].getInt(fields[i]);
 	        	String resourceName = fields[i].getName();
+	        	// current protocol: tour filenames begin with tour_
 	        	String parts[] = resourceName.split("_");
 	            if(parts[0].equals("tour"))
 	       		  tours[k++] = TourCreator.parseXml(this.getResources().openRawResource(resourceID));
@@ -117,23 +122,35 @@ public class TourListFragment extends ListFragment {
 	    }
 	    
 		tourList = new ArrayList<Tour>();
-		tourNameList = new ArrayList<String>();
+		//tourNameList = new ArrayList<String>();
 	    
 		// populate the list and hash map. NOTE: currently uses tour name as key. Change later to id.
 		for(int i = 0; i < k; i++) {
 			tourList.add(tours[i]);
-			tourNameList.add(tours[i].getName());
+			//tourNameList.add(tours[i].getName());
 			tourMap.put(tours[i].getName(), tours[i]);
 		}
+		sortTours(); // must come BEFORE tourNameList is initialised
+		
+		initialiseTourNameList();
+		
 	
 	}
 	
-	// Method for sorting the list of Tours according to user preferences.
+	/* Initialise tourNameList based on the values in tourList in the same order.
+	 * Required when refreshing and changing the sort criterion.
+	 */
+	private void initialiseTourNameList() {
+		tourNameList = new ArrayList<String>();
+		for(int i = 0; i < tourList.size(); i++) {
+			tourNameList.add(tourList.get(i).getName());
+		}
+	}
+	
+	/* Method for sorting the list of Tours according to user preferences. */
 	public void sortTours() { 
-		
-		String choice = "";
-		/* TODO: Black magic for initializing the String "choice" with the user's choice for a sorting criterion. */
-		switch (choice) { 
+		/* TODO: Black magic for initializing the String "sortOrder" with the user's choice for a sorting criterion. */
+		switch (sortOrder) { 
 		case "Alphabetical" :
 			AlphaComparator alphaComp = new AlphaComparator();
 			Collections.sort(tourList, alphaComp);
@@ -142,6 +159,7 @@ public class TourListFragment extends ListFragment {
 			ProxComparator proxComp = new ProxComparator();
 			Collections.sort(tourList, proxComp);
 			break;
+		default: break;
 		}
 		
 	}
@@ -189,15 +207,93 @@ public class TourListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		// populate local list. TODO: add progress indicator, optimise.
+		// add action bar menu 
+		setHasOptionsMenu(true);
+		
+		// create dropdown for sorting criterion
+		createSortingDropdown();
+	    
+		// populate local list
 		initialiseTours();
 		
+		// create and set list adapter
+		resetAdapter();
+	}
+	
+	/* Create the spinner dropdown to choose the sorting criterion for listed tours. */
+	private void createSortingDropdown() {
+		// create spinner adapter
+		SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(
+				getActivity(), R.array.sorting_criteria_list, android.R.layout.simple_spinner_dropdown_item);
+		
+		// create navigation listener
+		mOnNavigationListener = new OnNavigationListener() {
+			  // Get the same strings provided for the drop-down's ArrayAdapter
+			  String[] strings = getResources().getStringArray(R.array.sorting_criteria_list);
+
+			  // action when selected.
+			  @Override
+			  public boolean onNavigationItemSelected(int position, long itemId) {
+				  // change sorting criterion and refresh as required
+				  switch (strings[position]) {
+				  case "Alphabetical":
+					  sortOrder = strings[position];
+					  refresh();
+					  break;
+				  case "Proximity":
+					  sortOrder = strings[position];
+					  refresh();
+					  break;
+				  default: 
+					  sortOrder = "Filename";
+					  refresh();
+					  break;
+				  }
+				  Toast.makeText(getActivity(), "Tour sort order: " + strings[position], Toast.LENGTH_SHORT).show();
+				  return true;
+			  }
+		};
+		
+		// assign to action bar
+		ActionBar actionBar = getActivity().getActionBar();
+	    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+	    actionBar.setListNavigationCallbacks(mSpinnerAdapter, mOnNavigationListener);
+	
+	}
+	
+	/* Reset the list adapter used for the UI. Uses tourNameList. */
+	private void resetAdapter() {
 		// Create and set list adapter, using list of tour names. Style as required.
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_list_item_activated_1, android.R.id.text1, tourNameList);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+				getActivity(),
+				android.R.layout.simple_list_item_activated_1, 
+				android.R.id.text1, tourNameList);
 		setListAdapter(adapter);
 	}
+	
+	/* Refresh the list UI. */
+	private void refresh() {
+		initialiseTours();
+		resetAdapter();
+	}
+	
+	/* Inflate action bar menu items. */
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	    // Inflate the menu items for use in the action bar
+	    inflater.inflate(R.menu.tour_list_activity_actions, menu);
+	}
 
+	/* Define behaviour for action bar menu items. */
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if (id == R.id.action_refresh) {
+			refresh();
+			// display message
+			Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+		}
+		return getActivity().onOptionsItemSelected(item);
+	}
+	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);

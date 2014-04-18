@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 /**
  * An activity representing a list of Tours. This activity has different
@@ -55,7 +58,17 @@ public class TourListActivity extends FragmentActivity implements
 
 		// TODO: If exposing deep links into your app, handle intents here.
 	}
-
+	
+	/*
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.tour_list_activity_actions, menu);
+	    return super.onCreateOptionsMenu(menu);
+	}
+	*/
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
@@ -70,6 +83,33 @@ public class TourListActivity extends FragmentActivity implements
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		}
+		/* Can insert code here to handle the refresh button,
+		 * but avoid if this processing is done in TourListFragment's method,
+		 * as this method overrides that of the fragments called
+		 * 
+		if (id == R.id.action_refresh) {
+			// refresh 
+			Toast.makeText(this, "Refresh selected from activity", Toast.LENGTH_SHORT)
+	          .show();
+			
+			//copied code to load fragment
+			
+			if (findViewById(R.id.tour_detail_container) != null) {
+				// The detail container view will be present only in the
+				// large-screen layouts (res/values-large and
+				// res/values-sw600dp). If this view is present, then the
+				// activity should be in two-pane mode.
+				mTwoPane = true;
+
+				// In two-pane mode, list items should be given the
+				// 'activated' state when touched.
+				((TourListFragment) getSupportFragmentManager().findFragmentById(
+						R.id.tour_list)).setActivateOnItemClick(true);
+			}
+			
+			return true;
+		}
+		*/
 		return super.onOptionsItemSelected(item);
 	}
 
