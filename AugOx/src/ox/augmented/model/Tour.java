@@ -124,6 +124,10 @@ public class Tour {
 		index++;
 	}
 	
+	public void decrementIndex() {
+		index--;
+	}
+	
 	/**Returns the POI at that index. If the index is invalid will return the first POI of the tour.
 	 * 
 	 * @param ind
@@ -191,7 +195,7 @@ public class Tour {
 	}
 	
 	public boolean hasNext(){
-		return (index+1<pois.size());
+		return (index<pois.size());
 	}
 	
 }

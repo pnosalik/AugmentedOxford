@@ -1,33 +1,25 @@
 <data>
 	<meta>
-		<id>1</id>
+		<id>3</id>
 		<name>Test Tour Tristan</name>
-		<info>Some info</info>
-		<size>3</size>
+		<info>New College</info>
+		<size>2</size>
 	</meta>
 	
 	<tour>
 		<poi>
-			<name>Home</name>
-			<latitude>51.363075</latitude>
-			<longitude>-1.333717</longitude>
-			<info>Some Test Data \n\n\n\n Some More Lines\n\n\n\n\n\n\n\n\n\n\n Test \n\n\n\n\n A really really really really really really really really really really really really really really really really really long sentence</info>
-			<hashtags></hashtags>
-		</poi>
-	
-		<poi>
-			<name>Home 2</name>
-			<latitude>51.363200</latitude>
-			<longitude>-1.333900</longitude>
-			<info>Also my home</info>
+			<name>New College</name>
+			<latitude>51.754817</latitude>
+			<longitude>-1.250635</longitude>
+			<info>New College, on Holywell Street</info>
 			<hashtags></hashtags>
 		</poi>
 		
 		<poi>
-			<name>Home 3</name>
-			<latitude>51.363000</latitude>
-			<longitude>-1.333500</longitude>
-			<info>Also my room</info>
+			<name>Holywell 6/7</name>
+			<latitude>51.754908</latitude>
+			<longitude>-1.250257</longitude>
+			<info>My Room</info>
 			<hashtags></hashtags>
 		</poi>
 		

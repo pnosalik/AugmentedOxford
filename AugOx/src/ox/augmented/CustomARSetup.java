@@ -1,7 +1,6 @@
 package ox.augmented;
 
 import geo.GeoObj;
-import geo.GeoUtils;
 import gl.Color;
 import gl.CustomGLSurfaceView;
 import gl.GL1Renderer;
@@ -10,6 +9,7 @@ import gl.GLFactory;
 import gui.GuiSetup;
 
 import java.util.List;
+import java.util.Stack;
 
 import ox.augmented.data.TourCreator;
 import ox.augmented.model.Poi;
@@ -29,6 +29,7 @@ import android.location.Location;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+
 import commands.Command;
 
 public class CustomARSetup extends Setup {
@@ -40,10 +41,13 @@ public class CustomARSetup extends Setup {
 	private Location nextLocation;
 	private GLCamera camera;
 	private World world;
+	private GLFactory objectFactory;
 	private ActionWaitForAccuracy minAccuracyAction;
 	private Action rotateGLCameraAction;
 	private GuiSetup guiSetup;
 	private TextView distanceInfo;
+	private Stack<GeoObj> markers;
+	private Stack<Poi> markedPois;
 	
 	private static final String LOG_TAG = "CustomARSetup";
 	
@@ -69,22 +73,8 @@ public class CustomARSetup extends Setup {
 	public void _a_initFieldsIfNecessary() {
 		camera = new GLCamera();
 		world = new World(camera);
-		
-		/*
-		pois[0] = new Poi("Room", 51.363075, -1.333717, "Some Test Data \n\n\n\n Some More Lines\n\n\n\n\n\n\n\n\n\n\n Test \n\n\n\n\n A really really really really really really really really really really really really really really really really really long sentence");
-		pois[1] = new Poi("School", 51.364023, -1.335228, "My old school");
-		pois[2] = new Poi("Road", 51.362281, -1.336687, "Some public road");
-		pois[3] = new Poi("Tristan's Home", 51.362573, -1.331921, "Tristan's house");
-		pois[0] = new Poi("Ben's Home", 52.544650, -2.263560, "Ben's house");
-		pois[0].setDataSource(new TwitterSource(pois[0],""));*/
-		
-		/*pois[0] = new Poi("Home", 42.703844, 23.369362, "Some Test Data \n\n\n\n Some More Lines\n\n\n\n\n\n\n\n\n\n\n Test \n\n\n\n\n A really really really really really really really really really really really really really really really really really long sentence");
-		pois[1] = new Poi("Vesi", 42.706066, 23.368703, "My old school");
-		pois[2] = new Poi("Fantastiko", 42.704753, 23.367389, "Some public road");
-		pois[3] = new Poi("Desi", 42.703820, 23.359130, "Tristan's house");
-		pois[4] = new Poi("Baba", 42.703820, 23.359130, "Ben's house");
-		//pois[0].setDataSource(new TwitterSource(pois[0],""));
-		*/
+		markers = new Stack<GeoObj>();
+		markedPois = new Stack<Poi>();
 	
 		distanceInfo = new TextView(getActivity());
 		
@@ -112,14 +102,12 @@ public class CustomARSetup extends Setup {
 	
 	}
 	
-	private void addNextPoi(final GLFactory objectFactory) {
+	private void addNextPoi() {
 		if (theActiveTour.hasNext()){
 			final Poi p = theActiveTour.getCurrentPoi();
+			theActiveTour.incrementIndex();
 			theCurrentPoi = p;
-			nextPlace = p.getName();
-			nextLocation = new Location("nextLocation");
-			nextLocation.setLatitude(p.getLatitude());
-			nextLocation.setLongitude(p.getLongitude());
+			updateDistanceInfo();
 
 			final GeoObj o = new GeoObj(p.getLatitude(),p.getLongitude());
 			o.setComp(objectFactory.newDiamond(Color.green()));
@@ -134,18 +122,41 @@ public class CustomARSetup extends Setup {
 			o.setOnDoubleClickCommand(new Command(){
 				@Override
 				public boolean execute() {
-					displayInfo(p.getName(),p.getInfo());
 					if (theCurrentPoi==p){
-						theActiveTour.incrementIndex();
-						addNextPoi(objectFactory);
+						addNextPoi();
 						o.setColor(Color.blue());
 					}
 					return true;
 				}
 			});
+			markers.push(o);
+			markedPois.push(p);
 			world.add(o);
 		}
 		
+	}
+	
+	private void updateDistanceInfo() {
+		nextPlace = theCurrentPoi.getName();
+		nextLocation = new Location("nextLocation");
+		nextLocation.setLatitude(theCurrentPoi.getLatitude());
+		nextLocation.setLongitude(theCurrentPoi.getLongitude());
+	}
+	
+	private void skipPoi() {
+		markers.peek().setColor(Color.blue());
+		addNextPoi();
+	}
+	
+	private void previousPoi() {
+		if(markers.size() > 1){
+			world.remove(markers.pop());
+			markedPois.pop();
+			markers.peek().setColor(Color.green());
+			theCurrentPoi = markedPois.peek();
+			updateDistanceInfo();
+			theActiveTour.decrementIndex();
+		}
 	}
 	
 	private void displayInfo(String name, String info) {
@@ -180,8 +191,9 @@ public class CustomARSetup extends Setup {
 	@Override
 	public void _b_addWorldsToRenderer(GL1Renderer glRenderer,
 			GLFactory objectFactory, GeoObj currentPosition) {
+		this.objectFactory = objectFactory;
 		glRenderer.addRenderElement(world);
-		addNextPoi(objectFactory);
+		addNextPoi();
 	}
 
 	@Override
@@ -207,14 +219,14 @@ public class CustomARSetup extends Setup {
 			
 			@Override
 			public boolean onLocationChanged(Location location) {
-				//Location l = world.getMyCamera().getGPSLocation();
-				Location l = GeoUtils.getCurrentLocation(getActivity());
+				Location l = world.getMyCamera().getGPSLocation();
+				//Location l = GeoUtils.getCurrentLocation(getActivity());
 				Float distance = l.distanceTo(nextLocation);
-				distanceInfo.setText(
+				/*distanceInfo.setText(
 						"Current location: Lat: " + l.getLatitude() + " Long: " + l.getLongitude() +
 						"Next location: " + nextPlace + " Lat: " + nextLocation.getLatitude() + " long: " + nextLocation.getLongitude() +
-						" Distance: " + distance +" m");
-				//distanceInfo.setText("Next location: " + nextPlace + ", Distance: " + distance +"m");
+						" Distance: " + distance +" m");*/
+				distanceInfo.setText("Next location: " + nextPlace + ", Distance: " + distance +"m");
 				return true; //So that it is never removed from the list
 			}
 			
@@ -235,6 +247,24 @@ public class CustomARSetup extends Setup {
 		this.guiSetup = guiSetup;
 		guiSetup.addViewToTop(minAccuracyAction.getView());
 		guiSetup.addViewToBottom(distanceInfo);
+		guiSetup.addButtonToBottomView(new Command() {
+			
+			@Override
+			public boolean execute() {
+				skipPoi();
+				return false;
+			}
+			
+		}, "Next");
+		guiSetup.addButtonToBottomView(new Command() {
+			
+			@Override
+			public boolean execute() {
+				previousPoi();
+				return false;
+			}
+			
+		}, "Previous");
 	}
 	
 

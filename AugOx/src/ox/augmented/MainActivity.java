@@ -24,46 +24,8 @@ public class MainActivity extends ActionBarActivity {
 			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
-				
-		/*
-		Button b = new Button(this);
-		b.setText("Start AR");
-		b.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				CustomARSetup custom = new CustomARSetup(R.raw.tour_aditya);
-				custom.context = mainActivity;
-				ArActivity.startWithSetup(MainActivity.this, custom); 
-				
-		*/
-		
-				
-				/*{
-					
-					@Override
-					public void addObjectsTo(GL1Renderer renderer, World world,
-							GLFactory objectFactory) {
-						/*Local Data for tests
-						GeoObj o1 = new GeoObj(51.364023, -1.335228);
-						GeoObj o2 = new GeoObj(51.362281, -1.336687);
-						GeoObj o3 = new GeoObj(51.362573, -1.331921);
-						o1.setComp(objectFactory.newCube());
-						o2.setComp(objectFactory.newCube());
-						o3.setComp(objectFactory.newCube());
-						world.add(o1);
-						world.add(o2);
-						world.add(o3);
-						world.add(objectFactory.newSolarSystem(new Vec(10,0,0)));
-					}					
-					
-				});
-			}
-		});
-
-	}
-	*/
-
+	
+	
 	// method called by Start AR button, loading ArActivity with custom Setup and one of the tours
 	public void startAR(View view) {
 		CustomARSetup custom = new CustomARSetup();
