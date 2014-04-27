@@ -3,7 +3,7 @@
 		<id>3</id>
 		<name>Test Tour Tristan</name>
 		<info>New College</info>
-		<size>2</size>
+		<size>4</size>
 	</meta>
 	
 	<tour>
@@ -20,6 +20,22 @@
 			<latitude>51.754908</latitude>
 			<longitude>-1.250257</longitude>
 			<info>My Room</info>
+			<hashtags></hashtags>
+		</poi>
+		
+		<poi>
+			<name>Quad</name>
+			<latitude>51.755048</latitude>
+			<longitude>-1.250142</longitude>
+			<info>Holywell Quad</info>
+			<hashtags></hashtags>
+		</poi>
+		
+		<poi>
+			<name>Merton College</name>
+			<latitude>51.751333</latitude>
+			<longitude>-1.252229</longitude>
+			<info>Merton College, Merton Street</info>
 			<hashtags></hashtags>
 		</poi>
 		

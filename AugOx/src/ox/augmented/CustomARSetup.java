@@ -1,5 +1,8 @@
 package ox.augmented;
 
+import geo.CustomItemizedOverlay;
+import geo.GMap;
+import geo.GeoGraph;
 import geo.GeoObj;
 import gl.Color;
 import gl.CustomGLSurfaceView;
@@ -16,6 +19,7 @@ import ox.augmented.model.Poi;
 import ox.augmented.model.Tour;
 import system.EventManager;
 import system.Setup;
+import util.IO;
 import util.Log;
 import worldData.SystemUpdater;
 import worldData.World;
@@ -30,6 +34,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.google.android.maps.MapActivity;
 import commands.Command;
 
 public class CustomARSetup extends Setup {
@@ -41,6 +46,8 @@ public class CustomARSetup extends Setup {
 	private Location nextLocation;
 	private GLCamera camera;
 	private World world;
+	private GeoGraph visitedPins;
+	private GeoGraph unvisitedPins;
 	private GLFactory objectFactory;
 	private ActionWaitForAccuracy minAccuracyAction;
 	private Action rotateGLCameraAction;
@@ -75,6 +82,10 @@ public class CustomARSetup extends Setup {
 		world = new World(camera);
 		markers = new Stack<GeoObj>();
 		markedPois = new Stack<Poi>();
+		visitedPins = new GeoGraph(false);
+		unvisitedPins = new GeoGraph(false);
+		world.add(visitedPins);
+		world.add(unvisitedPins);
 	
 		distanceInfo = new TextView(getActivity());
 		
@@ -105,7 +116,7 @@ public class CustomARSetup extends Setup {
 	private void addNextPoi() {
 		if (theActiveTour.hasNext()){
 			final Poi p = theActiveTour.getCurrentPoi();
-			theActiveTour.incrementIndex();
+			theActiveTour.incrementIndex();			
 			theCurrentPoi = p;
 			updateDistanceInfo();
 
@@ -129,9 +140,14 @@ public class CustomARSetup extends Setup {
 					return true;
 				}
 			});
+			/*if(!markers.isEmpty()) {
+				GeoObj m = markers.peek();
+				unvisitedPins.remove(m);
+				visitedPins.add(m);
+			}*/
+			unvisitedPins.add(o);
 			markers.push(o);
 			markedPois.push(p);
-			world.add(o);
 		}
 		
 	}
@@ -150,9 +166,12 @@ public class CustomARSetup extends Setup {
 	
 	private void previousPoi() {
 		if(markers.size() > 1){
-			world.remove(markers.pop());
+			unvisitedPins.remove(markers.pop());
 			markedPois.pop();
-			markers.peek().setColor(Color.green());
+			GeoObj m = markers.peek();
+			//visitedPins.remove(m);
+			//unvisitedPins.add(m);
+			m.setColor(Color.green());
 			theCurrentPoi = markedPois.peek();
 			updateDistanceInfo();
 			theActiveTour.decrementIndex();
@@ -246,7 +265,21 @@ public class CustomARSetup extends Setup {
 	public void _e2_addElementsToGuiSetup(GuiSetup guiSetup, Activity activity) {
 		this.guiSetup = guiSetup;
 		guiSetup.addViewToTop(minAccuracyAction.getView());
-		guiSetup.addViewToBottom(distanceInfo);
+		//guiSetup.addViewToBottom(distanceInfo);
+		guiSetup.addViewToRight(distanceInfo);
+		final GMap map = GMap.newDefaultGMap((MapActivity) getActivity(),"AIzaSyBl1nnH6_n7Nn3JZEBjCm8tn53Mx-UrmUg");
+		try {
+			map.addOverlay(new CustomItemizedOverlay(unvisitedPins, IO
+					.loadDrawableFromId(getActivity(),
+							de.rwth.R.drawable.mapdotgreen)));
+			map.addOverlay(new CustomItemizedOverlay(visitedPins, IO
+					.loadDrawableFromId(getActivity(),
+							de.rwth.R.drawable.mapdotblue)));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		guiSetup.addViewToBottomRight(map, 2f, 200);
 		guiSetup.addButtonToBottomView(new Command() {
 			
 			@Override
@@ -265,7 +298,20 @@ public class CustomARSetup extends Setup {
 			}
 			
 		}, "Previous");
+		guiSetup.addButtonToBottomView(new Command() {
+
+			@Override
+			public boolean execute() {
+				if (map.getVisibility() == View.VISIBLE)
+					map.setVisibility(View.GONE);
+				else
+					map.setVisibility(View.VISIBLE);
+				return true;
+			}
+			
+		}, "Show/Hide map");
 	}
+	
 	
 
 }

@@ -1,6 +1,5 @@
 package ox.augmented;
 
-import system.ArActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import de.rwth.ARActivityPlusMaps;
 
 public class MainActivity extends ActionBarActivity {
 	public MainActivity mainActivity = this;
@@ -31,14 +31,14 @@ public class MainActivity extends ActionBarActivity {
 		CustomARSetup custom = new CustomARSetup();
 		custom.context = mainActivity;
 		custom.setTour(R.raw.tour_aditya);
-		ArActivity.startWithSetup(MainActivity.this, custom); 
+		ARActivityPlusMaps.startWithSetup(MainActivity.this, custom); 
 	}
 	
 	public void startAR2(View view) {
 		CustomARSetup custom = new CustomARSetup();
 		custom.context = mainActivity;
 		custom.setTour(R.raw.tour_tristan);
-		ArActivity.startWithSetup(MainActivity.this, custom); 
+		ARActivityPlusMaps.startWithSetup(MainActivity.this, custom); 
 	}
 
 	// method called by Tour Selection button, loading tour selection screen.
