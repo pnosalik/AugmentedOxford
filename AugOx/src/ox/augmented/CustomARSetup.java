@@ -37,6 +37,8 @@ import android.widget.TextView;
 import com.google.android.maps.MapActivity;
 import commands.Command;
 
+import de.rwth.setups.GoogleMapsKey;
+
 public class CustomARSetup extends Setup {
 	public int activeTourID; //set by caller module
 	private Tour theActiveTour;
@@ -44,6 +46,7 @@ public class CustomARSetup extends Setup {
 	
 	private String nextPlace;
 	private Location nextLocation;
+	private int distanceAway;
 	private GLCamera camera;
 	private World world;
 	private GeoGraph visitedPins;
@@ -238,14 +241,14 @@ public class CustomARSetup extends Setup {
 			
 			@Override
 			public boolean onLocationChanged(Location location) {
-				Location l = world.getMyCamera().getGPSLocation();
-				//Location l = GeoUtils.getCurrentLocation(getActivity());
-				Float distance = l.distanceTo(nextLocation);
+				Location l = camera.getGPSLocation();
+				distanceAway = (int) l.distanceTo(nextLocation);	
+				updateDistanceInfo();
 				/*distanceInfo.setText(
-						"Current location: Lat: " + l.getLatitude() + " Long: " + l.getLongitude() +
-						"Next location: " + nextPlace + " Lat: " + nextLocation.getLatitude() + " long: " + nextLocation.getLongitude() +
-						" Distance: " + distance +" m");*/
-				distanceInfo.setText("Next location: " + nextPlace + ", Distance: " + distance +"m");
+				"Current location: Lat: " + l.getLatitude() + " Long: " + l.getLongitude() +
+				"Next location: " + nextPlace + " Lat: " + nextLocation.getLatitude() + " long: " + nextLocation.getLongitude() +
+				" Distance: " + distance +" m");*/
+				distanceInfo.setText("Next location: " + nextPlace + ", Distance: " + distanceAway +"m");
 				return true; //So that it is never removed from the list
 			}
 			
@@ -267,7 +270,7 @@ public class CustomARSetup extends Setup {
 		guiSetup.addViewToTop(minAccuracyAction.getView());
 		//guiSetup.addViewToBottom(distanceInfo);
 		guiSetup.addViewToRight(distanceInfo);
-		final GMap map = GMap.newDefaultGMap((MapActivity) getActivity(),"AIzaSyBl1nnH6_n7Nn3JZEBjCm8tn53Mx-UrmUg");
+		final GMap map = GMap.newDefaultGMap((MapActivity) getActivity(),GoogleMapsKey.pc1DebugKey);
 		try {
 			map.addOverlay(new CustomItemizedOverlay(unvisitedPins, IO
 					.loadDrawableFromId(getActivity(),
@@ -285,7 +288,7 @@ public class CustomARSetup extends Setup {
 			@Override
 			public boolean execute() {
 				skipPoi();
-				return false;
+				return true;
 			}
 			
 		}, "Next");
@@ -294,7 +297,7 @@ public class CustomARSetup extends Setup {
 			@Override
 			public boolean execute() {
 				previousPoi();
-				return false;
+				return true;
 			}
 			
 		}, "Previous");
