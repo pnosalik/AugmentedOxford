@@ -1,7 +1,5 @@
 package ox.augmented;
 
-import geo.CustomItemizedOverlay;
-import geo.GMap;
 import geo.GeoGraph;
 import geo.GeoObj;
 import gl.Color;
@@ -32,12 +30,16 @@ import android.content.Context;
 import android.location.Location;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.maps.MapActivity;
-import commands.Command;
 
-import de.rwth.setups.GoogleMapsKey;
+import commands.Command;
 
 public class CustomARSetup extends Setup {
 	public int activeTourID; //set by caller module
@@ -62,6 +64,7 @@ public class CustomARSetup extends Setup {
 	private static final String LOG_TAG = "CustomARSetup";
 	
 	public Context context;
+	public MapView mapView;
 	//public CustomARSetup(Context mainActivity){
 	//	this.context = mainActivity;
 	//}
@@ -269,8 +272,8 @@ public class CustomARSetup extends Setup {
 		this.guiSetup = guiSetup;
 		guiSetup.addViewToTop(minAccuracyAction.getView());
 		//guiSetup.addViewToBottom(distanceInfo);
-		guiSetup.addViewToRight(distanceInfo);
-		final GMap map = GMap.newDefaultGMap((MapActivity) getActivity(),GoogleMapsKey.pc1DebugKey);
+		guiSetup.addViewToRight(distanceInfo);		
+		/*final GMap map = GMap.newDefaultGMap((MapActivity) getActivity(),GoogleMapsKey.pc1DebugKey);
 		try {
 			map.addOverlay(new CustomItemizedOverlay(unvisitedPins, IO
 					.loadDrawableFromId(getActivity(),
@@ -281,8 +284,13 @@ public class CustomARSetup extends Setup {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}*/
+		mapView.getMap();
+		//((ViewGroup) mapView.getParent()).removeView(mapView);
+		if (mapView.getParent()!=null) {
+			((ViewGroup) mapView.getParent()).removeView(mapView);
 		}
-		guiSetup.addViewToBottomRight(map, 2f, 200);
+		guiSetup.addViewToBottomRight(mapView, 2f, 200);
 		guiSetup.addButtonToBottomView(new Command() {
 			
 			@Override
@@ -305,10 +313,10 @@ public class CustomARSetup extends Setup {
 
 			@Override
 			public boolean execute() {
-				if (map.getVisibility() == View.VISIBLE)
-					map.setVisibility(View.GONE);
+				if (mapView.getVisibility() == View.VISIBLE)
+					mapView.setVisibility(View.GONE);
 				else
-					map.setVisibility(View.VISIBLE);
+					mapView.setVisibility(View.VISIBLE);
 				return true;
 			}
 			

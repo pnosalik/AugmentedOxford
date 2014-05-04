@@ -1,17 +1,8 @@
 package ox.augmented.model;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import ox.augmented.data.TwitterSource;
 
 public class Tour {
 	private List<Poi> pois = new ArrayList<Poi>();//All the POIs in this tour
