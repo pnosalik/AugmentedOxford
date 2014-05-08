@@ -1,16 +1,10 @@
 package ox.augmented;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import system.ArActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +22,8 @@ public class MainActivity extends ActionBarActivity {
 		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-			.add(R.id.container, new PlaceholderFragment(), "FragmentContainingMap").commit();
+			//.add(R.id.container, new PlaceholderFragment(), "FragmentContainingMap").commit();
+			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		
 	}
@@ -37,8 +32,8 @@ public class MainActivity extends ActionBarActivity {
 	public void startAR(View view) {
 		CustomARSetup custom = new CustomARSetup();
 		custom.context = mainActivity;
-		custom.mapView = (MapView) getSupportFragmentManager().findFragmentByTag("FragmentContainingMap").getView().findViewById(R.id.map);
-		((ViewGroup) custom.mapView.getParent()).removeView(custom.mapView);
+		//custom.mapView = (MapView) getSupportFragmentManager().findFragmentByTag("FragmentContainingMap").getView().findViewById(R.id.map);
+		//((ViewGroup) custom.mapView.getParent()).removeView(custom.mapView);
 		custom.setTour(R.raw.tour_aditya);
 		ArActivity.startWithSetup(MainActivity.this, custom); 
 	}
@@ -46,16 +41,16 @@ public class MainActivity extends ActionBarActivity {
 	public void startAR2(View view) {
 		CustomARSetup custom = new CustomARSetup();
 		custom.context = mainActivity;
-		custom.mapView = (MapView) getSupportFragmentManager().findFragmentByTag("FragmentContainingMap").getView().findViewById(R.id.map);
-		((ViewGroup) custom.mapView.getParent()).removeView(custom.mapView);
+		//custom.mapView = (MapView) getSupportFragmentManager().findFragmentByTag("FragmentContainingMap").getView().findViewById(R.id.map);
+		//((ViewGroup) custom.mapView.getParent()).removeView(custom.mapView);
 		custom.setTour(R.raw.tour_oxford_1);
 		ArActivity.startWithSetup(MainActivity.this, custom); 
 	}
 
 	// method called by Tour Selection button, loading tour selection screen.
 	public void tourSelection(View view) {
-	Intent intent = new Intent(this, TourListActivity.class);
-	startActivity(intent);
+		Intent intent = new Intent(this, TourListActivity.class);
+		startActivity(intent);
 	}
 
 	
@@ -83,8 +78,8 @@ public class MainActivity extends ActionBarActivity {
 	 * A placeholder fragment containing a simple view.
 	 * */
 	public static class PlaceholderFragment extends Fragment {
-		private GoogleMap mMap;
-		private MapView mMapView;
+		//private GoogleMap mMap;
+		//private MapView mMapView;
 		
 		public PlaceholderFragment() {
 		
@@ -94,15 +89,15 @@ public class MainActivity extends ActionBarActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 			
-			 mMapView = (MapView) rootView.findViewById(R.id.map);
-		     mMapView.onCreate(savedInstanceState);
+			 //mMapView = (MapView) rootView.findViewById(R.id.map);
+		     //mMapView.onCreate(savedInstanceState);
 
-		     //setUpMapIfNeeded();
+		     /*setUpMapIfNeeded();*/
 			
 			return rootView;
 		}
 		
-		public void onResume() {
+		/*public void onResume() {
 	        super.onResume();
 	        mMapView.onResume();
 
@@ -147,7 +142,7 @@ public class MainActivity extends ActionBarActivity {
 	    public void onSaveInstanceState(Bundle outState) {
 	        super.onSaveInstanceState(outState);
 	        mMapView.onSaveInstanceState(outState);
-	    }
+	    }*/
 
 }
 }
