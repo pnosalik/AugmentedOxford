@@ -166,11 +166,12 @@ public class Tour {
 	
 	
 	/** Returns the pois converted into an Array
-	 *	NOT WORKING = throws a ClassCastException 
 	 * @return pois as a Poi[]
 	 */
 	public Poi[] getAllPoisAsArray(){
-		return (Poi[]) pois.toArray();
+		Poi[] p = new Poi[size];
+		pois.toArray(p);
+		return p;
 	}
 	
 	/** Returns the pois in a list

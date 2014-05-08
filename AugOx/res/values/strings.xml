@@ -12,14 +12,15 @@
     <string name="text_nodata">No Data</string>
     <string name="title_tour_list">Tours</string>
     <string name="title_tour_detail">Tour Detail</string>
-	<string name="text_tour_detail_heading_pois">Points of interest on this tour:</string>
-	<string name="text_tour_detail_button_start">Start Tour</string>
-    
-	<string-array name="sorting_criteria_list">
+    <string name="text_tour_detail_heading_pois">Points of interest on this tour:</string>
+    <string name="text_tour_detail_button_start">Start Tour</string>
+
+    <string-array name="sorting_criteria_list">
         <item>Default (filename)</item>
         <item>Alphabetical</item>
         <item>Proximity</item>
     </string-array>
-	
-	
+
+    <string name="title_activity_map">MapActivity</string>
+
 </resources>

@@ -27,12 +27,13 @@
         android:text="@string/button_tour_selection"
         android:onClick="tourSelection" />
      
+     <!--
      <com.google.android.gms.maps.MapView xmlns:android="http://schemas.android.com/apk/res/android"
  		 android:id="@+id/map"
   		 android:layout_width="match_parent"
   		 android:layout_height="match_parent"
   		 android:visibility="gone"
   		 />
-   
+ 	-->
 
 </LinearLayout>
