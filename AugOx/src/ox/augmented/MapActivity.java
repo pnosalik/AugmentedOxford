@@ -1,11 +1,14 @@
 package ox.augmented;
 
+import org.w3c.dom.Document;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Location;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Window;
-
+import app.akexorcist.gdaplibrary.GoogleDirection;
+import app.akexorcist.gdaplibrary.GoogleDirection.OnDirectionResponseListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -19,6 +22,10 @@ public class MapActivity extends Activity {
 	private String[] names;
 	private int current;
 	private GoogleMap map;
+	private GoogleDirection gd;
+	Document mDoc;
+	
+	private LatLng myPosition = new LatLng(51.757465, -1.245925);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +36,32 @@ public class MapActivity extends Activity {
 		lats = intent.getDoubleArrayExtra("LATS");
 		longs = intent.getDoubleArrayExtra("LONGS");
 		names = intent.getStringArrayExtra("NAMES");
-		current = intent.getIntExtra("CURRENT", 0);		
+		current = intent.getIntExtra("CURRENT", 0);	
+		
+		gd = new GoogleDirection(this);
+		gd.setOnDirectionResponseListener(new OnDirectionResponseListener() {
+			public void onResponse(String status, Document doc, GoogleDirection gd) {
+				mDoc = doc;
+				map.addPolyline(gd.getPolyline(doc, 3, Color.RED));	
+		        
+			}
+		});
 		mapSetup();
+		drawRouteOnMap();
+		
+		
 
 	}
 	
 	private void mapSetup() {
 		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		map.setMyLocationEnabled(true);
+		poisSetup();
+		LatLng l = new LatLng(lats[current], longs[current]);
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(l,16));
+	}
+	
+	private void poisSetup(){
 		for(int i = 0; i < names.length; i++){
 			Float hue = i < current ? BitmapDescriptorFactory.HUE_BLUE :
 				i > current ? BitmapDescriptorFactory.HUE_MAGENTA : 
@@ -47,11 +72,13 @@ public class MapActivity extends Activity {
 	        	.icon(BitmapDescriptorFactory.defaultMarker(hue)));
 			
 		}
-	
-		LatLng l = new LatLng(lats[current], longs[current]);
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(l,16));
 	}
-
+	
+	private void drawRouteOnMap(){
+		gd.setLogging(true);
+		LatLng destPosition = new LatLng(lats[current], longs[current]);
+		gd.request(myPosition, destPosition, GoogleDirection.MODE_WALKING);
+	}
 	
 
 }
