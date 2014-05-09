@@ -70,6 +70,7 @@ public class CustomARSetup extends Setup {
 	
 	public void setTour(Tour tour) {
 		theActiveTour =  tour;
+		theActiveTour.setIndex(0);
 	}
 	
 	@Override
@@ -117,7 +118,13 @@ public class CustomARSetup extends Setup {
 			o.setOnClickCommand(new Command(){
 				@Override
 				public boolean execute() {
-					displayInfo(p.getName(),p.getInfo());;
+					String data = p.getDataSourceInfo();
+					if(p.hasDataSource() && data != "") {
+						displayInfo(p.getName(), data);
+					}
+					else {
+						displayInfo(p.getName(),p.getInfo());
+					}
 					return true;
 				}
 			});
@@ -126,6 +133,7 @@ public class CustomARSetup extends Setup {
 				@Override
 				public boolean execute() {
 					if (theCurrentPoi==p){
+						displayInfo(p.getName(),p.getInfo());
 						addNextPoi();
 						o.setColor(Color.blue());
 					}
