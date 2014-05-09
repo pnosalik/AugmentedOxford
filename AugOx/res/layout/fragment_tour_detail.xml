@@ -9,6 +9,12 @@
     android:orientation="vertical"
     tools:context="ox.augmented.TourDetailFragment" >
 
+    <Button
+	    android:id="@+id/tour_detail_button_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_tour_detail_button_start"/>
+    
 	<TextView 
 	    android:id="@+id/tour_detail_name"
 	    style="?android:attr/textAppearanceLarge"
@@ -33,7 +39,6 @@
 	    android:padding="16dp"
 	    android:textIsSelectable="true" />
 	<!-- android:text="@string/text_tour_detail_heading_pois" -->
-	    
 	
 	<TextView 
 	    android:id="@+id/tour_detail_pois"
@@ -43,11 +48,6 @@
 	    android:padding="16dp"
 	    android:textIsSelectable="true" />
 	
-	<Button
-	    android:id="@+id/tour_detail_button_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_tour_detail_button_start"/>
 		
 </LinearLayout>
 

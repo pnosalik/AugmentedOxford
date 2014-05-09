@@ -150,18 +150,21 @@ public class TourListFragment extends ListFragment {
 	/* Method for sorting the list of Tours according to user preferences. */
 	public void sortTours() { 
 		/* TODO: Black magic for initializing the String "sortOrder" with the user's choice for a sorting criterion. */
-		switch (sortOrder) { 
-		case "Alphabetical" :
+		String criteria[] = getResources().getStringArray(R.array.sorting_criteria_list);
+		//default, alphabetical, proximity
+		if(sortOrder.equals(criteria[0]))
+		{
 			AlphaComparator alphaComp = new AlphaComparator();
 			Collections.sort(tourList, alphaComp);
-			break;
-		case "Closest POI":
-			ProxComparator proxComp = new ProxComparator();
-			Collections.sort(tourList, proxComp);
-			break;
-		default: break;
 		}
-		
+		else 
+		{
+			if(sortOrder.equals(criteria[1]))
+			{
+				ProxComparator proxComp = new ProxComparator();
+				Collections.sort(tourList, proxComp);
+			}
+		}
 	}
 	
 	// Different comparator classes for sorting the list of tours according to user preferences .
@@ -223,8 +226,9 @@ public class TourListFragment extends ListFragment {
 	/* Create the spinner dropdown to choose the sorting criterion for listed tours. */
 	private void createSortingDropdown() {
 		// create spinner adapter
-		SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(
-				getActivity(), R.array.sorting_criteria_list, android.R.layout.simple_spinner_dropdown_item);
+		ArrayAdapter<CharSequence> mSpinnerAdapter = ArrayAdapter.createFromResource(
+				getActivity(), R.array.sorting_criteria_list, R.layout.custom_spinner_dropdown_item); //or android.R.layout.simple_spinner..
+		mSpinnerAdapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
 		
 		// create navigation listener
 		mOnNavigationListener = new OnNavigationListener() {
@@ -264,10 +268,16 @@ public class TourListFragment extends ListFragment {
 	/* Reset the list adapter used for the UI. Uses tourNameList. */
 	private void resetAdapter() {
 		// Create and set list adapter, using list of tour names. Style as required.
+		/*
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+				getActivity(),
+				R.layout.tour_list_item_activated, 
+				R.id.tour_list_item_text, tourNameList);
+		*/
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 				getActivity(),
 				android.R.layout.simple_list_item_activated_1, 
-				android.R.id.text1, tourNameList);
+				android.R.id.text1, tourNameList); 
 		setListAdapter(adapter);
 	}
 	
@@ -331,7 +341,6 @@ public class TourListFragment extends ListFragment {
 	public void onListItemClick(ListView listView, View view, int position,
 			long id) {
 		super.onListItemClick(listView, view, position, id);
-
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.
 		mCallbacks.onItemSelected(tourList.get(position).getName());

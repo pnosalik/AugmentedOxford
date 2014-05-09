@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -11,7 +11,7 @@
             backward-compatibility can go here.
         -->
     </style>
-	<color name="custom_theme_color">#b0b0ff</color>
+	<color name="custom_theme_color">#d7d7ff</color>
 	<color name="actionbar_text">#ffffff</color>
 	<color name="actionbar_background">#000099</color>
     <!-- Application theme. -->
@@ -22,9 +22,7 @@
     	<item name="android:actionBarStyle">@style/MyActionBar</item>
     	<item name="android:actionBarTabTextStyle">@style/MyActionBarTabText</item>
     	<item name="android:actionMenuTextColor">@color/actionbar_text</item>
-    	
-    	
-    </style>
+     </style>
     
     <!-- ActionBar styles -->
     <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar">
