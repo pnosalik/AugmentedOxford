@@ -18,13 +18,14 @@ import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 /**
@@ -152,14 +153,14 @@ public class TourListFragment extends ListFragment {
 		/* TODO: Black magic for initializing the String "sortOrder" with the user's choice for a sorting criterion. */
 		String criteria[] = getResources().getStringArray(R.array.sorting_criteria_list);
 		//default, alphabetical, proximity
-		if(sortOrder.equals(criteria[0]))
+		if(sortOrder.equals(criteria[1]))
 		{
 			AlphaComparator alphaComp = new AlphaComparator();
 			Collections.sort(tourList, alphaComp);
 		}
 		else 
 		{
-			if(sortOrder.equals(criteria[1]))
+			if(sortOrder.equals(criteria[2]))
 			{
 				ProxComparator proxComp = new ProxComparator();
 				Collections.sort(tourList, proxComp);
@@ -239,6 +240,7 @@ public class TourListFragment extends ListFragment {
 			  @Override
 			  public boolean onNavigationItemSelected(int position, long itemId) {
 				  // change sorting criterion and refresh as required
+				  /*
 				  switch (strings[position]) {
 				  case "Alphabetical":
 					  sortOrder = strings[position];
@@ -253,6 +255,9 @@ public class TourListFragment extends ListFragment {
 					  refresh();
 					  break;
 				  }
+				  */
+				  sortOrder = strings[position];
+				  refresh();
 				  Toast.makeText(getActivity(), "Tour sort order: " + strings[position], Toast.LENGTH_SHORT).show();
 				  return true;
 			  }

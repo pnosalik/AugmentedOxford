@@ -13,7 +13,7 @@
     </style>
 	<color name="custom_theme_color">#d7d7ff</color>
 	<color name="actionbar_text">#ffffff</color>
-	<color name="actionbar_background">#000099</color>
+	<color name="actionbar_background">#000033</color>
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
