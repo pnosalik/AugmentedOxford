@@ -237,8 +237,14 @@ public class CustomARSetup extends Setup {
 			@Override
 			public boolean onLocationChanged(Location location) {
 				Location l = camera.getGPSLocation();
-				distanceAway = (int) l.distanceTo(nextLocation);	
+				distanceAway = (int) l.distanceTo(nextLocation);
+				if(distanceAway < 5) {
+					//Add the next poi if within 5m of the current
+					markers.peek().setColor(Color.blue());
+					addNextPoi();
+				}
 				updateDistanceInfo();
+
 				/*distanceInfo.setText(
 				"Current location: Lat: " + l.getLatitude() + " Long: " + l.getLongitude() +
 				"Next location: " + nextPlace + " Lat: " + nextLocation.getLatitude() + " long: " + nextLocation.getLongitude() +
