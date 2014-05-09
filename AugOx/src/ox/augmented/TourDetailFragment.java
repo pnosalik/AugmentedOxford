@@ -2,6 +2,9 @@ package ox.augmented;
 
 import java.util.List;
 
+import com.google.android.gms.maps.MapView;
+
+import de.rwth.ARActivityPlusMaps;
 import ox.augmented.model.Poi;
 import ox.augmented.model.Tour;
 import system.ArActivity;
@@ -86,8 +89,16 @@ public class TourDetailFragment extends Fragment {
 					public void onClick(View v) {
 						CustomARSetup custom = new CustomARSetup();
 						custom.context = currentActivity;
+						//custom.mapView = (MapView) getSupportFragmentManager().findFragmentByTag("FragmentContainingMap").getView().findViewById(R.id.map);
+						//((ViewGroup) custom.mapView.getParent()).removeView(custom.mapView);
 						custom.setTour(mItem);
 						ArActivity.startWithSetup(currentActivity, custom); 
+						/*
+						CustomARSetup custom = new CustomARSetup();
+						custom.context = currentActivity;
+						custom.setTour(mItem);
+						ARActivityPlusMaps.startWithSetup(currentActivity, custom); //changed to include map 
+						*/
 					}
 				});
 			

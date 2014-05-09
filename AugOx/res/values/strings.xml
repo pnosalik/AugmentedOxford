@@ -16,9 +16,9 @@
     <string name="text_tour_detail_button_start">Start Tour</string>
 
     <string-array name="sorting_criteria_list">
-        <item>Default (filename)</item>
-        <item>Alphabetical</item>
-        <item>Proximity</item>
+        <item name="sorting_criterion_default">Sort by default order</item>
+        <item name="sorting_criterion_alphabetical">Sort in alphabetical order</item>
+        <item name="sorting_criterion_proximity">Sort by proximity</item>
     </string-array>
 
     <string name="title_activity_map">MapActivity</string>

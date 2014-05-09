@@ -43,7 +43,7 @@ public class MainActivity extends ActionBarActivity {
 		custom.context = mainActivity;
 		//custom.mapView = (MapView) getSupportFragmentManager().findFragmentByTag("FragmentContainingMap").getView().findViewById(R.id.map);
 		//((ViewGroup) custom.mapView.getParent()).removeView(custom.mapView);
-		custom.setTour(R.raw.tour_tristan);
+		custom.setTour(R.raw.tour_oxford_1);
 		ArActivity.startWithSetup(MainActivity.this, custom); 
 	}
 

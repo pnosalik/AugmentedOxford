@@ -25,7 +25,7 @@ import android.widget.Toast;
  * This activity also implements the required {@link TourListFragment.Callbacks}
  * interface to listen for item selections.
  * 
- * Pending: this may be adapted into the UI in MainActivity.
+ * TODO: this may be adapted into the UI in MainActivity.
  */
 public class TourListActivity extends FragmentActivity implements
 		TourListFragment.Callbacks {

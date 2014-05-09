@@ -1,0 +1,39 @@
+<data>
+	<meta>
+		<id>OXF1</id>
+		<name>Test Tour Oxford 1</name>
+		<info>Info for Aditya's Test Tour in Oxford</info>
+		<size>4</size>
+	</meta>
+	
+	<tour>
+		<poi>
+			<name>Grove A 1</name>
+			<latitude>51.753783</latitude>
+			<longitude>-1.247833</longitude>
+			<info>Some Test Data \n\n\n\n Some More Lines\n\n\n\n\n\n\n\n\n\n\n Test \n\n\n\n\n A really really really really really really really really really really really really really really really really really long sentence</info>
+			<hashtags>"Magdalen"</hashtags>
+		</poi>
+		<poi>
+			<name>Grove A 2</name>
+			<latitude>51.75365</latitude>
+			<longitude>-1.247917</longitude>
+			<info>Grove A Outside</info>
+			<hashtags></hashtags>
+		</poi>
+		<poi>
+			<name>Grove A 3</name>
+			<latitude>51.753365</latitude>
+			<longitude>-1.248</longitude>
+			<info>Grove Path</info>
+			<hashtags></hashtags>
+		</poi>
+		<poi>
+			<name>Grove A 4</name>
+			<latitude>51.753767</latitude>
+			<longitude>-1.247583</longitude>
+			<info>Grove A 4</info>
+			<hashtags></hashtags>
+		</poi>
+	</tour>
+	</data>	
