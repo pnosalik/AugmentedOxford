@@ -185,11 +185,14 @@ public class MapActivity extends FragmentActivity
 	        }
 	    }
 	 
+	 //possible only while no animation is running
 	 private void redrawAllOnMap(){
-		map.clear();
-		poisSetup();
-		if (displayingRoute) drawRouteOnMap();
+		if (!gd.isAnimated()){
+			map.clear();
+			poisSetup();
+			if (displayingRoute) drawRouteOnMap();
 	 	}
+	 }	
 	
 
 }
