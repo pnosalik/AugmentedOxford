@@ -7,11 +7,11 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-
 import app.akexorcist.gdaplibrary.GoogleDirection;
 import app.akexorcist.gdaplibrary.GoogleDirection.OnDirectionResponseListener;
 
@@ -28,6 +28,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * 
+ * Uses Android-GoogleDirectionAndPlaceLibrary <br>
+ * Source: https://github.com/akexorcist/Android-GoogleDirectionAndPlaceLibrary
+ *
+ */
 public class MapActivity extends FragmentActivity 
 		implements
 			ConnectionCallbacks,
@@ -101,6 +107,8 @@ public class MapActivity extends FragmentActivity
 					gd.animateDirection(map, gd.getDirection(mDoc), GoogleDirection.SPEED_NORMAL
 							, true, false, true, false, null, false, true, null);
 				}
+				else if (gd==null) Log.d("MapActivity", "gd==null");
+				else if (mDoc==null) Log.d("MapActivity", "mDoc==null");
 			}
 		});
 		
@@ -136,9 +144,14 @@ public class MapActivity extends FragmentActivity
 	
 	private void drawRouteOnMap(){
 		LatLng destPosition = new LatLng(lats[current], longs[current]);
+		try {
 		if (distance(myPosition.latitude, myPosition.longitude, destPosition.latitude, destPosition.longitude)<=MAX_DISTANCE){
 			gd.setLogging(true);
 			gd.request(myPosition, destPosition, GoogleDirection.MODE_WALKING);
+		}
+		}
+		catch(NullPointerException e){
+			e.printStackTrace();
 		}
 	}
 	

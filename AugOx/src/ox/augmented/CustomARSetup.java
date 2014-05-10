@@ -288,25 +288,6 @@ public class CustomARSetup extends Setup {
 	public void _e2_addElementsToGuiSetup(GuiSetup guiSetup, Activity activity) {
 		this.guiSetup = guiSetup;
 		guiSetup.addViewToTop(minAccuracyAction.getView());
-		
-		/*final GMap map = GMap.newDefaultGMap((MapActivity) getActivity(),GoogleMapsKey.pc1DebugKey);
-		try {
-			map.addOverlay(new CustomItemizedOverlay(unvisitedPins, IO
-					.loadDrawableFromId(getActivity(),
-							de.rwth.R.drawable.mapdotgreen)));
-			map.addOverlay(new CustomItemizedOverlay(visitedPins, IO
-					.loadDrawableFromId(getActivity(),
-							de.rwth.R.drawable.mapdotblue)));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
-		//mapView.getMap();
-		/*((ViewGroup) mapView.getParent()).removeView(mapView);
-		if (mapView.getParent()!=null) {
-			((ViewGroup) mapView.getParent()).removeView(mapView);
-		}
-		guiSetup.addViewToBottomRight(mapView, 2f, 200);*/
 	
 		guiSetup.addImangeButtonToRightView(
 				R.drawable.ic_action_help,
