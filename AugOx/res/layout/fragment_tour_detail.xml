@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,16 +11,23 @@
 
     <Button
 	    android:id="@+id/tour_detail_button_start"
+	    style="?android:attr/textAppearanceMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tour_detail_name"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/button_blue"
+        android:textColor="@color/actionbar_text"
+        android:padding="0dp"
         android:text="@string/text_tour_detail_button_start"/>
     
 	<TextView 
 	    android:id="@+id/tour_detail_name"
 	    style="?android:attr/textAppearanceLarge"
-	    android:layout_width="match_parent"
+	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:padding="16dp"
+	    android:padding="8dp"
+	    android:textColor="@color/actionbar_background"
 	    android:textIsSelectable="true" />
 
 	<TextView 
@@ -28,7 +35,8 @@
 	    style="?android:attr/textAppearanceMedium"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:padding="16dp"
+	    android:layout_below="@id/tour_detail_name"
+	    android:padding="8dp"
 	    android:textIsSelectable="true" />
 	
 	<TextView 
@@ -36,7 +44,8 @@
 	    style="?android:attr/textAppearanceMedium"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:padding="16dp"
+	    android:layout_below="@id/tour_detail_info"
+	    android:padding="8dp"
 	    android:textIsSelectable="true" />
 	<!-- android:text="@string/text_tour_detail_heading_pois" -->
 	
@@ -45,9 +54,9 @@
 	    style="?android:attr/textAppearanceMedium"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:padding="16dp"
+	    android:layout_below="@id/tour_detail_heading_pois"
+	    android:padding="8dp"
 	    android:textIsSelectable="true" />
 	
-		
-</LinearLayout>
+</RelativeLayout>
 

@@ -8,6 +8,7 @@ public class Poi {
 	private Double latitude;
 	private Double longitude;
 	private String info;
+	private String dataSourceInfo = "";
 	private DataSource dataSource;
 	
 	public Poi(String name, Double latitude, Double longitude, String info, DataSource dataSource) {
@@ -18,7 +19,7 @@ public class Poi {
 		this.dataSource = dataSource;
 		if(dataSource != null) {
 			dataSource.setAnchor(this);
-			info = dataSource.getCurrentText();
+			dataSourceInfo = dataSource.getCurrentText();
 		}
 	}
 	
@@ -44,10 +45,19 @@ public class Poi {
 	}
 
 	public String getInfo() {
-		if(dataSource != null) {
-			info = dataSource.getCurrentText();
-		}
 		return info;
+	}
+	
+	public boolean hasDataSource() {
+		return dataSource != null;
+	}
+	
+	public String getDataSourceInfo() {
+		if(dataSource != null) {
+			dataSourceInfo = dataSource.getCurrentText();
+			dataSource.next();
+		}
+		return dataSourceInfo;
 	}
 	
 	public DataSource getDataSource(){

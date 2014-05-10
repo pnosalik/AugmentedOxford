@@ -1,0 +1,88 @@
+<data>
+	<meta>
+		<id>OXF4MATHS</id>
+		<name>Mathematician's Walk</name>
+		<info>A tour from the new Mathematical Institute to Magdalen College.</info>
+		<size>11</size>
+	</meta>
+	
+	<tour>
+		<poi>
+			<name>Mathematical Institute</name>
+			<latitude>51.760445</latitude>
+			<longitude>-1.262985</longitude>
+			<info>Andrew Wiles Building</info>
+			<hashtags>"@OxUniMaths"</hashtags>
+		</poi>
+		<poi>
+			<name>Somerville College</name>
+			<latitude>51.759735</latitude>
+			<longitude>-1.261370</longitude>
+			<info>Somerville College</info>
+			<hashtags>"Somerville College"</hashtags>
+		</poi>
+		<poi>
+			<name>St Giles Church</name>
+			<latitude>51.759125</latitude>
+			<longitude>-1.260187</longitude>
+			<info>St Giles Church and yard</info>
+			<hashtags></hashtags>
+		</poi>
+		<poi>
+			<name>Museum of Natural History</name>
+			<latitude>51.758571</latitude>
+			<longitude>-1.256047</longitude>
+			<info>Lawn of Museum</info>
+			<hashtags>"@morethanadodo"</hashtags>
+		</poi>
+		<poi>
+			<name>Radcliffe Science Library</name>
+			<latitude>51.757890</latitude>
+			<longitude>-1.255993</longitude>
+			<info>RSL</info>
+			<hashtags></hashtags>
+		</poi>
+		<poi>
+    		<name>Wadham College</name>
+    		<latitude>51.755621</latitude>
+    		<longitude>-1.254837</longitude>
+    		<info>Wadham College\n\n Founded in 1610, this college was where Sir Christopher Wren spent his time in Oxford, who was part of the Oxford Philosophical Club with other famous scientists such as Robert Boyle and Robert Hooke, and which went on to become the Royal Society.</info>
+			<hashtags>"Wadham College Oxford"</hashtags>
+		</poi>
+		<poi>
+			<name>Sheldonian Theatre</name>
+			<latitude>51.754314</latitude>
+			<longitude>-1.254848</longitude>
+			<info>Location for University ceremonies.</info>
+			<hashtags></hashtags>
+		</poi>
+		<poi>
+			<name>Old Bodleian Library</name>
+			<latitude>51.754246</latitude>
+			<longitude>-1.254427</longitude>
+			<info>Copyright library of the University.</info>
+			<hashtags></hashtags>
+		</poi>
+		<poi>
+			<name>Radcliffe Camera</name>
+			<latitude>51.753272</latitude>
+			<longitude>-1.253945</longitude>
+			<info>Rad Cam South</info>
+			<hashtags></hashtags>
+		</poi>
+		<poi>
+		    <name>New College</name>
+		    <latitude>51.754884</latitude>
+		    <longitude>-1.250642</longitude>
+		    <info>New College\n\n Founded in 1379, this college gets its name because its official name, College of St Mary, was originally shared by Oriel College, hence it was referred to as the "New College of St Mary".</info>
+			<hashtags>"New College Oxford"</hashtags>
+		</poi>
+		<poi>
+			<name>Magdalen College Auditorium Gates</name>
+			<latitude>51.753167</latitude>
+			<longitude>-1.248305</longitude>
+			<info>Magdalen Auditorium</info>
+			<hashtags></hashtags>
+		</poi>
+	</tour>
+</data>

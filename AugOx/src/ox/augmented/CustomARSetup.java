@@ -27,10 +27,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-
 import commands.Command;
 
 public class CustomARSetup extends Setup {
@@ -70,6 +71,7 @@ public class CustomARSetup extends Setup {
 	
 	public void setTour(Tour tour) {
 		theActiveTour =  tour;
+		theActiveTour.setIndex(0);
 	}
 	
 	@Override
@@ -117,7 +119,13 @@ public class CustomARSetup extends Setup {
 			o.setOnClickCommand(new Command(){
 				@Override
 				public boolean execute() {
-					displayInfo(p.getName(),p.getInfo());;
+					String data = p.getDataSourceInfo();
+					if(p.hasDataSource() && data != "") {
+						displayInfo(p.getName(), data);
+					}
+					else {
+						displayInfo(p.getName(),p.getInfo());
+					}
 					return true;
 				}
 			});
@@ -126,6 +134,7 @@ public class CustomARSetup extends Setup {
 				@Override
 				public boolean execute() {
 					if (theCurrentPoi==p){
+						displayInfo(p.getName(),p.getInfo());
 						addNextPoi();
 						o.setColor(Color.blue());
 					}
@@ -229,8 +238,14 @@ public class CustomARSetup extends Setup {
 			@Override
 			public boolean onLocationChanged(Location location) {
 				Location l = camera.getGPSLocation();
-				distanceAway = (int) l.distanceTo(nextLocation);	
+				distanceAway = (int) l.distanceTo(nextLocation);
+				if(distanceAway < 5) {
+					//Add the next poi if within 5m of the current
+					markers.peek().setColor(Color.blue());
+					addNextPoi();
+				}
 				updateDistanceInfo();
+
 				/*distanceInfo.setText(
 				"Current location: Lat: " + l.getLatitude() + " Long: " + l.getLongitude() +
 				"Next location: " + nextPlace + " Lat: " + nextLocation.getLatitude() + " long: " + nextLocation.getLongitude() +
@@ -308,31 +323,44 @@ public class CustomARSetup extends Setup {
 
 			@Override
 			public boolean execute() {
-				Intent intent = new Intent(getActivity(), MapActivity.class);
-				Poi[] p = theActiveTour.getAllPoisAsArray();
-				int n = p.length;
-				double[] lats = new double[n];
-				double[] longs = new double[n];
-				String[] names = new String[n];
-				for(int i = 0;i < n; i++) {
-					lats[i] = p[i].getLatitude();
-					longs[i] = p[i].getLongitude();
-					names[i] = p[i].getName();
-				}
-				intent.putExtra("LATS", lats);
-				intent.putExtra("LONGS", longs);
-				intent.putExtra("NAMES", names);
-				intent.putExtra("CURRENT", theActiveTour.getIndex()-1);
-				
-				getActivity().startActivity(intent);
-				return true;
+					if(isOnline()) {
+						Intent intent = new Intent(getActivity(), MapActivity.class);
+						Poi[] p = theActiveTour.getAllPoisAsArray();
+						int n = p.length;
+						double[] lats = new double[n];
+						double[] longs = new double[n];
+						String[] names = new String[n];
+						for(int i = 0;i < n; i++) {
+							lats[i] = p[i].getLatitude();
+							longs[i] = p[i].getLongitude();
+							names[i] = p[i].getName();
+						}
+						intent.putExtra("LATS", lats);
+						intent.putExtra("LONGS", longs);
+						intent.putExtra("NAMES", names);
+						intent.putExtra("CURRENT", theActiveTour.getIndex()-1);
+						
+						getActivity().startActivity(intent);
+						return true;
+					}
+					Log.d("CustomARSetup.Show map", "No internet connection, not displaying map.");
+					return false;
 			}
 			
-		}, "Show map");
+			}, "Show map");
 		
 		guiSetup.addViewToBottom(distanceInfo);
 	}
 	
+	public boolean isOnline() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
+	}
 	
 
 }
