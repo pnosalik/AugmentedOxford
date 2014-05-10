@@ -15,17 +15,26 @@ import util.Log;
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -55,6 +64,9 @@ public class TourListFragment extends ListFragment {
 	 * The current activated item position. Only used on tablets.
 	 */
 	private int mActivatedPosition = ListView.INVALID_POSITION;
+	
+	/** The current activity */
+	private Activity currentActivity;
 
 	/**
 	 * A callback interface that all activities containing this fragment must
@@ -292,6 +304,63 @@ public class TourListFragment extends ListFragment {
 		resetAdapter();
 	}
 	
+	/* Pop-up class */
+	public class PopUp extends Activity implements OnClickListener {
+		
+		LinearLayout layoutOfPopup;
+		PopupWindow popupMessage;
+		Button popupButton, insidePopupButton;
+		TextView popupText;
+		
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.main);
+			init();
+			popupInit();
+		}
+		
+		@Override
+		public void onClick(View v) {
+			if(v.getId() == R.id.action_help) {
+				popupMessage.showAsDropDown(popupButton, 0, 0);
+			} else {
+				popupMessage.dismiss();
+			}
+		}
+		
+		public void init() {
+			popupButton = (Button) findViewById(R.id.action_help);
+			popupText = new TextView(this);
+			insidePopupButton = new Button(this);
+			layoutOfPopup = new LinearLayout(this);
+			insidePopupButton.setText("Ok");
+			popupText.setText("This is a Popup Window");
+			popupText.setPadding(0, 0, 0, 20);
+			layoutOfPopup.setOrientation(1);
+			layoutOfPopup.addView(popupText);
+			layoutOfPopup.addView(insidePopupButton);
+		}
+		
+		public void popupInit() {
+			popupButton.setOnClickListener(this);
+			insidePopupButton.setOnClickListener(this);
+			popupMessage = new PopupWindow(layoutOfPopup, LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+			popupMessage.setContentView(layoutOfPopup);
+		}
+		
+	}
+	
+	/* Display Help pop-up screen */
+	private void help() {
+//		PopUp popUp = new PopUp();
+		LayoutInflater inflater = (LayoutInflater) this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
+
+		PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.main, null, false),100,100, true);
+
+		pw.showAtLocation(this.getActivity().findViewById(R.id.action_help), Gravity.CENTER, 0, 0);
+	}
+	
 	/* Inflate action bar menu items. */
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 	    // Inflate the menu items for use in the action bar
@@ -301,11 +370,32 @@ public class TourListFragment extends ListFragment {
 	/* Define behaviour for action bar menu items. */
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
-		if (id == R.id.action_refresh) {
+		 
+		switch (id) {
+
+		case R.id.action_refresh:
+			refresh();
+			// display message
+			Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+			break;
+		case R.id.action_help:
+			help();
+			// display message
+			Toast.makeText(getActivity(), "Help", Toast.LENGTH_SHORT).show();
+			break;
+		}
+	/*	}
+	        R.id.action_refresh) {
 			refresh();
 			// display message
 			Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
 		}
+		if(id == R.id.action_help) {
+			help();
+			// display message
+			Toast.makeText(getActivity(), "Help", Toast.LENGTH_SHORT).show();
+		}
+    */
 		return getActivity().onOptionsItemSelected(item);
 	}
 	

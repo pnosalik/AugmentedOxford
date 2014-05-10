@@ -9,6 +9,14 @@
         android:title="@string/action_refresh"
         android:showAsAction="ifRoom"
         app:showAsAction="ifRoom" />
+		
+	<!-- Help -->
+	<item 
+		android:id="@+id/action_help"
+		android:icon="@drawable/ic_action_help"
+		android:title="@string/action_help"
+		android:showAsAction="ifRoom" 
+		app:showAsAction="ifRoom" />
  
     <!-- Settings, always in overflow -->
     <item
