@@ -13,9 +13,11 @@ import ox.augmented.model.Poi;
 import ox.augmented.model.Tour;
 import util.Log;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.ActionBar.OnNavigationListener;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -304,61 +306,20 @@ public class TourListFragment extends ListFragment {
 		resetAdapter();
 	}
 	
-	/* Pop-up class */
-	public class PopUp extends Activity implements OnClickListener {
-		
-		LinearLayout layoutOfPopup;
-		PopupWindow popupMessage;
-		Button popupButton, insidePopupButton;
-		TextView popupText;
-		
-		@Override
-		public void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			setContentView(R.layout.main);
-			init();
-			popupInit();
-		}
-		
-		@Override
-		public void onClick(View v) {
-			if(v.getId() == R.id.action_help) {
-				popupMessage.showAsDropDown(popupButton, 0, 0);
-			} else {
-				popupMessage.dismiss();
-			}
-		}
-		
-		public void init() {
-			popupButton = (Button) findViewById(R.id.action_help);
-			popupText = new TextView(this);
-			insidePopupButton = new Button(this);
-			layoutOfPopup = new LinearLayout(this);
-			insidePopupButton.setText("Ok");
-			popupText.setText("This is a Popup Window");
-			popupText.setPadding(0, 0, 0, 20);
-			layoutOfPopup.setOrientation(1);
-			layoutOfPopup.addView(popupText);
-			layoutOfPopup.addView(insidePopupButton);
-		}
-		
-		public void popupInit() {
-			popupButton.setOnClickListener(this);
-			insidePopupButton.setOnClickListener(this);
-			popupMessage = new PopupWindow(layoutOfPopup, LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-			popupMessage.setContentView(layoutOfPopup);
-		}
-		
-	}
-	
-	/* Display Help pop-up screen */
+	/* Display Help dialog screen */
 	private void help() {
-//		PopUp popUp = new PopUp();
-		LayoutInflater inflater = (LayoutInflater) this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
-
-		PopupWindow pw = new PopupWindow(inflater.inflate(R.layout.main, null, false),100,100, true);
-
-		pw.showAtLocation(this.getActivity().findViewById(R.id.action_help), Gravity.CENTER, 0, 0);
+	AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());	
+	View view = View.inflate(getActivity(), R.layout.help_layout, null);
+	builder.setView(view);
+	builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+		}
+	});
+	AlertDialog dialog = builder.create();
+	dialog.show();
 	}
 	
 	/* Inflate action bar menu items. */

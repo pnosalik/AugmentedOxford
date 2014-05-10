@@ -24,7 +24,9 @@ import actions.ActionCalcRelativePos;
 import actions.ActionRotateCameraBuffered;
 import actions.ActionWaitForAccuracy;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -154,6 +156,22 @@ public class CustomARSetup extends Setup {
 		nextLocation = new Location("nextLocation");
 		nextLocation.setLatitude(theCurrentPoi.getLatitude());
 		nextLocation.setLongitude(theCurrentPoi.getLongitude());
+	}
+	
+	/* Display Help dialog screen */
+	private void help() {
+	AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());	
+	View view = View.inflate(getActivity(), R.layout.help_layout, null);
+	builder.setView(view);
+	builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+		}
+	});
+	AlertDialog dialog = builder.create();
+	dialog.show();
 	}
 	
 	private void skipPoi() {
@@ -289,6 +307,17 @@ public class CustomARSetup extends Setup {
 			((ViewGroup) mapView.getParent()).removeView(mapView);
 		}
 		guiSetup.addViewToBottomRight(mapView, 2f, 200);*/
+	
+		guiSetup.addImangeButtonToRightView(
+				R.drawable.ic_action_help,
+				new Command() {
+
+					@Override
+					public boolean execute() {
+						help();
+						return true;
+					}
+				});
 		guiSetup.addButtonToBottomView(new Command() {
 			
 			@Override

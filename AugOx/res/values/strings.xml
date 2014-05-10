@@ -25,5 +25,6 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="button_animate_route">A</string>
     <string name="button_display_route">R</string>
+	<string name="help_text">insert help text here</string>
 
 </resources>

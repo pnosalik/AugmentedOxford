@@ -11,14 +11,8 @@
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="56dp"
-		android:text="Popup window will display on this Activity" />
+		android:background="#000033"
+		android:text="@string/help_text" />
 		
-	<Button
-		android:id="@+id/action_help"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_centerHorizontal="true"
-		android:layout_centerVertical="true"
-		android:text="Show Popup" />
 		
 </RelativeLayout>
