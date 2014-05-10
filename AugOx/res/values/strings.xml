@@ -22,5 +22,7 @@
     </string-array>
 
     <string name="title_activity_map">MapActivity</string>
+    <string name="button_animate_route">A</string>
+    <string name="button_display_route">R</string>
 
 </resources>
