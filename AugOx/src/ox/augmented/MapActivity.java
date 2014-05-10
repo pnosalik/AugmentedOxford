@@ -1,7 +1,5 @@
 package ox.augmented;
 
-import java.util.ArrayList;
-
 import org.w3c.dom.Document;
 
 import android.content.Intent;
@@ -13,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
 import app.akexorcist.gdaplibrary.GoogleDirection;
 import app.akexorcist.gdaplibrary.GoogleDirection.OnDirectionResponseListener;
 
@@ -34,24 +33,30 @@ public class MapActivity extends FragmentActivity
 			ConnectionCallbacks,
 			OnConnectionFailedListener,
 			LocationListener{
+	
 	private double[] lats;
 	private double[] longs;
 	private String[] names;
 	private int current;
+	
 	private GoogleMap map;
 	private GoogleDirection gd;
-	Document mDoc;
+	private Document mDoc;
 	private LocationClient mLocationClient;
+	
+	private Button buttonRefreshRoute;
+	private Button buttonDisplayRoute;
+	private Button buttonAnimateRoute;
+	
+	private boolean displayingRoute = true;
+	private LatLng myPosition =new LatLng(0,0);//won't actually be displayed as (0,0). Will be changed as soon as onLocationChanged is called. More efficient than setting to null and checking whether it has received data.
 	private long lastTimeMapUpdated=0;
 	
-	Button buttonRefreshRoute;
-	Button buttonDisplayRoute;
-	Button buttonAnimateRoute;
-	
-	boolean displayingRoute = true;
-	
-	private LatLng myPosition =new LatLng(0,0);//won't actually be displayed as (0,0). Will be changed as soon as onLocationChanged is called. More efficient than setting to null and checking whether it has received data.
+	private static final double MAX_DISTANCE = 30000;//30km . In meters. Crashes for long distances, e.g. Oxford-Bangalor
+	private static final int MIN_REFRESH_PERIOD = 30000;//30s. In millisecond. Will request for new data automaticly only if MIN_REFRESH_PERIOD time has passed since the last update.
 
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -76,6 +81,7 @@ public class MapActivity extends FragmentActivity
         buttonRefreshRoute.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				redrawAllOnMap();
+				lastTimeMapUpdated = System.currentTimeMillis();
 			}
 		});
         
@@ -84,6 +90,7 @@ public class MapActivity extends FragmentActivity
 			public void onClick(View v) {
 				displayingRoute = !(displayingRoute);
 				redrawAllOnMap();
+				lastTimeMapUpdated = System.currentTimeMillis();
 			}
 		});
         
@@ -128,9 +135,11 @@ public class MapActivity extends FragmentActivity
 	}
 	
 	private void drawRouteOnMap(){
-		gd.setLogging(true);
 		LatLng destPosition = new LatLng(lats[current], longs[current]);
-		gd.request(myPosition, destPosition, GoogleDirection.MODE_WALKING);
+		if (distance(myPosition.latitude, myPosition.longitude, destPosition.latitude, destPosition.longitude)<=MAX_DISTANCE){
+			gd.setLogging(true);
+			gd.request(myPosition, destPosition, GoogleDirection.MODE_WALKING);
+		}
 	}
 	
 	private static final LocationRequest REQUEST = LocationRequest.create()
@@ -141,7 +150,7 @@ public class MapActivity extends FragmentActivity
 	@Override
 	public void onLocationChanged(Location arg0) {
 		long currentTime = System.currentTimeMillis();
-		if (currentTime-lastTimeMapUpdated>30000){ //30 sec
+		if (currentTime-lastTimeMapUpdated>MIN_REFRESH_PERIOD){ //30 sec
 			Location myLocation = mLocationClient.getLastLocation();
 			myPosition = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
 			redrawAllOnMap();
@@ -199,5 +208,20 @@ public class MapActivity extends FragmentActivity
 	 	}
 	 }	
 	
+	 public double distance (double lat_a, double lng_a, double lat_b, double lng_b ) 
+	 {
+	     double earthRadius = 3958.75;
+	     double latDiff = Math.toRadians(lat_b-lat_a);
+	     double lngDiff = Math.toRadians(lng_b-lng_a);
+	     double a = Math.sin(latDiff /2) * Math.sin(latDiff /2) +
+	     Math.cos(Math.toRadians(lat_a)) * Math.cos(Math.toRadians(lat_b)) *
+	     Math.sin(lngDiff /2) * Math.sin(lngDiff /2);
+	     double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	     double distance = earthRadius * c;
+
+	     int meterConversion = 1609;
+
+	     return Double.valueOf(distance * meterConversion);
+	 }
 
 }
