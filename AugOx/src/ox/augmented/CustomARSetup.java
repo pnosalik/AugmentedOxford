@@ -27,10 +27,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-
 import commands.Command;
 
 public class CustomARSetup extends Setup {
@@ -322,31 +323,44 @@ public class CustomARSetup extends Setup {
 
 			@Override
 			public boolean execute() {
-				Intent intent = new Intent(getActivity(), MapActivity.class);
-				Poi[] p = theActiveTour.getAllPoisAsArray();
-				int n = p.length;
-				double[] lats = new double[n];
-				double[] longs = new double[n];
-				String[] names = new String[n];
-				for(int i = 0;i < n; i++) {
-					lats[i] = p[i].getLatitude();
-					longs[i] = p[i].getLongitude();
-					names[i] = p[i].getName();
-				}
-				intent.putExtra("LATS", lats);
-				intent.putExtra("LONGS", longs);
-				intent.putExtra("NAMES", names);
-				intent.putExtra("CURRENT", theActiveTour.getIndex()-1);
-				
-				getActivity().startActivity(intent);
-				return true;
+					if(isOnline()) {
+						Intent intent = new Intent(getActivity(), MapActivity.class);
+						Poi[] p = theActiveTour.getAllPoisAsArray();
+						int n = p.length;
+						double[] lats = new double[n];
+						double[] longs = new double[n];
+						String[] names = new String[n];
+						for(int i = 0;i < n; i++) {
+							lats[i] = p[i].getLatitude();
+							longs[i] = p[i].getLongitude();
+							names[i] = p[i].getName();
+						}
+						intent.putExtra("LATS", lats);
+						intent.putExtra("LONGS", longs);
+						intent.putExtra("NAMES", names);
+						intent.putExtra("CURRENT", theActiveTour.getIndex()-1);
+						
+						getActivity().startActivity(intent);
+						return true;
+					}
+					Log.d("CustomARSetup.Show map", "No internet connection, not displaying map.");
+					return false;
 			}
 			
-		}, "Show map");
+			}, "Show map");
 		
 		guiSetup.addViewToBottom(distanceInfo);
 	}
 	
+	public boolean isOnline() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
+	}
 	
 
 }

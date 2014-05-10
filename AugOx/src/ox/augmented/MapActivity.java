@@ -1,5 +1,7 @@
 package ox.augmented;
 
+import java.util.ArrayList;
+
 import org.w3c.dom.Document;
 
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import app.akexorcist.gdaplibrary.GoogleDirection;
 import app.akexorcist.gdaplibrary.GoogleDirection.OnDirectionResponseListener;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -87,8 +90,10 @@ public class MapActivity extends FragmentActivity
         buttonAnimateRoute = (Button)findViewById(R.id.animateRoute);
         buttonAnimateRoute.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				gd.animateDirection(map, gd.getDirection(mDoc), GoogleDirection.SPEED_NORMAL
-        				, true, false, true, false, null, false, true, null);
+				if (gd!=null && mDoc!=null){
+					gd.animateDirection(map, gd.getDirection(mDoc), GoogleDirection.SPEED_NORMAL
+							, true, false, true, false, null, false, true, null);
+				}
 			}
 		});
 		
