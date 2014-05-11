@@ -165,7 +165,7 @@ public class CustomARSetup extends Setup {
 	/* Display Help dialog screen */
 	private void help() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());	
-		View view = View.inflate(getActivity(), R.layout.help_layout, null);
+		View view = View.inflate(getActivity(), R.layout.help_ar_layout, null);
 		builder.setView(view);
 		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		
