@@ -23,8 +23,26 @@
     </string-array>
 
     <string name="title_activity_map">MapActivity</string>
-    <string name="button_animate_route">A</string>
-    <string name="button_display_route">R</string>
-	<string name="help_text">insert help text here</string>
-
+    <string name="button_animate_route">Animate</string>
+    <string name="button_display_route">Route</string>
+	<string name="help_text">The left panel shows the tours of Oxford that you can choose from.\n
+	    Use the dropdown menu on the top bar to change how the tours are sorted. This can be done in 3 ways:\n
+	    - by filename (default)\n
+	    - alphabetically\n
+	    - by proximity to the start of the tour (needs a GPS signal)\n
+	    Touch a tour to see its details in the right panel.\n
+	    If you cannot see the complete list of locations on the tour, touch the list and scroll.\n
+	    When you decide which tour you want, click the blue Start Tour button!
+	</string>
+    <string name="help_text_AR">You are now in a tour. Hold up your device as you go about the city of Oxford, and follow the directions to the next point of interest.\n
+        POINTS OF INTEREST:\n
+        The name and distance of the next location are on the bottom of the screen. Use the Previous or Next buttons to skip points.\n
+        When you reach the next point of interest, the app will display information about it in a box, including recent tweets.\n
+        A green marker may be visible on your screen when you reach the point.
+	    To return to the tour selection screen, press your device's Back button.\n 
+	    MAP:\n
+        Click Show Map to display a map of the tour (needs internet). You can then display and animate the route to the next point.\n
+        Blue markers are visited points, green is the next point on the tour, purple are later points on the tour.\n
+        To return to the camera view from the map, press your device's Back button.
+	    </string>
 </resources>

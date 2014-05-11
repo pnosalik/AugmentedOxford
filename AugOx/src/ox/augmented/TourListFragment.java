@@ -306,7 +306,7 @@ public class TourListFragment extends ListFragment {
 		
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
-			// TODO Auto-generated method stub
+			// TODO Auto-generated method stub - button can simply close dialog
 		}
 	});
 	AlertDialog dialog = builder.create();
