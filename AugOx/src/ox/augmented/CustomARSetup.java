@@ -34,16 +34,19 @@ import android.net.NetworkInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+
 import commands.Command;
+import commands.ui.CommandShowToast;
 
 public class CustomARSetup extends Setup {
 	public int activeTourID; //set by caller module
 	private Tour theActiveTour;
 	private Poi theCurrentPoi;
 	
-	private String nextPlace;
-	private Location nextLocation;
-	private int distanceAway;
+	private boolean minAccuracyReached; //Whether the GPS location is accurate, initially false
+	private String nextPlace; //Name of the next location
+	private Location nextLocation; //Poi of the next location
+	private int distanceAway; //Distance to the next Poi in metres
 	private GLCamera camera;
 	private World world;
 	private GLFactory objectFactory;
@@ -51,8 +54,8 @@ public class CustomARSetup extends Setup {
 	private Action rotateGLCameraAction;
 	private GuiSetup guiSetup;
 	private TextView distanceInfo;
-	private Stack<GeoObj> markers;
-	private Stack<Poi> markedPois;
+	private Stack<GeoObj> markers; //A stack of the markers corresponding to the displayed pois
+	private Stack<Poi> markedPois; //A Stack of the displayed Pois
 	
 	private static final String LOG_TAG = "CustomARSetup";
 	
@@ -82,7 +85,7 @@ public class CustomARSetup extends Setup {
 		world = new World(camera);
 		markers = new Stack<GeoObj>();
 		markedPois = new Stack<Poi>();
-	
+		minAccuracyReached = false;
 		distanceInfo = new TextView(getActivity());
 		
 		//PRECONDITION: setTour(int) or setTour(Tour) has already been called before creating this Setup
@@ -117,16 +120,17 @@ public class CustomARSetup extends Setup {
 			updateDistanceInfo();
 
 			final GeoObj o = new GeoObj(p.getLatitude(),p.getLongitude());
-			o.setComp(objectFactory.newDiamond(Color.green()));
+			o.setComp(objectFactory.newDiamond(Color.green())); //Green represents unvisited
+			
 			o.setOnClickCommand(new Command(){
 				@Override
 				public boolean execute() {
 					String data = p.getDataSourceInfo();
 					if(p.hasDataSource() && data != "") {
-						displayInfo(p.getName(), data);
+						displayDataSourceInfo(p.getName(), data);
 					}
 					else {
-						displayInfo(p.getName(),p.getInfo());
+						displayDataSourceInfo(p.getName(),"No social media data for this location");
 					}
 					return true;
 				}
@@ -135,18 +139,18 @@ public class CustomARSetup extends Setup {
 			o.setOnDoubleClickCommand(new Command(){
 				@Override
 				public boolean execute() {
-					if (theCurrentPoi==p){
-						displayInfo(p.getName(),p.getInfo());
+					displayInfo(p.getName(),p.getInfo());
+					if (theCurrentPoi==p){ //If current Poi add the next
 						addNextPoi();
-						o.setColor(Color.blue());
+						o.setColor(Color.blue()); //Blue represents visited
 					}
 					return true;
 				}
 			});
 
-			world.add(o);
-			markers.push(o);
-			markedPois.push(p);
+			world.add(o); //Add the next marker to the world
+			markers.push(o); //Push it to the stack of markers
+			markedPois.push(p); //Push the Poi to the stack of displayed Pois
 		}
 		
 	}
@@ -160,18 +164,18 @@ public class CustomARSetup extends Setup {
 	
 	/* Display Help dialog screen */
 	private void help() {
-	AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());	
-	View view = View.inflate(getActivity(), R.layout.help_layout, null);
-	builder.setView(view);
-	builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());	
+		View view = View.inflate(getActivity(), R.layout.help_layout, null);
+		builder.setView(view);
+		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		
-		@Override
-		public void onClick(DialogInterface dialog, int which) {
-			// TODO Auto-generated method stub
-		}
-	});
-	AlertDialog dialog = builder.create();
-	dialog.show();
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+			}
+		});
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 	
 	private void skipPoi() {
@@ -195,7 +199,8 @@ public class CustomARSetup extends Setup {
 		}
 	}
 	
-	private void displayInfo(String name, String info) {
+	//Display a TextView stating a name of a location and the data source's information on it
+	private void displayDataSourceInfo(String name, String info) {
 		final TextView v = (TextView)View.inflate(getActivity(), R.layout.poi_layout, null);
 		v.setText(name + "\n" + info);
 		v.setTextColor(Color.white().toIntARGB());
@@ -218,10 +223,17 @@ public class CustomARSetup extends Setup {
 		    }
 		});
 		
-		/**Intent intent = new Intent(getActivity(), InfoScreen.class);
-		intent.putExtra("NAME",name);
-		intent.putExtra("INFO", info);
-		getActivity().startActivity(intent);*/
+	}
+	
+	//Display the name of a location and the defined information about it
+	private void displayInfo(String name, String info) {
+		/**InfoScreenSettings i = new InfoScreenSettings(getActivity());
+		i.addText(name);
+		i.addText(info);
+		ActivityConnector.getInstance().startActivity(getActivity(),
+				InfoScreen.class, i);**/
+		//Using DataSourceDisplay since InfoScreen doesn't display as intended
+		displayDataSourceInfo(name, info);
 	}
 
 	@Override
@@ -229,7 +241,7 @@ public class CustomARSetup extends Setup {
 			GLFactory objectFactory, GeoObj currentPosition) {
 		this.objectFactory = objectFactory;
 		glRenderer.addRenderElement(world);
-		addNextPoi();
+		//addNextPoi();
 	}
 
 	@Override
@@ -243,7 +255,9 @@ public class CustomARSetup extends Setup {
 		minAccuracyAction = new ActionWaitForAccuracy(getActivity(), 24.0f, 10) {
 			@Override
 			public void minAccuracyReachedFirstTime(Location l,
-					ActionWaitForAccuracy a) {
+					ActionWaitForAccuracy a) { //Add the first Poi once there is good signal
+				minAccuracyReached = true;
+				addNextPoi();
 				if (!eventManager.getOnLocationChangedAction().remove(a)) {
 					Log.e(LOG_TAG,
 							"Could not remove minAccuracyAction from the onLocationChangedAction list");
@@ -255,20 +269,17 @@ public class CustomARSetup extends Setup {
 			
 			@Override
 			public boolean onLocationChanged(Location location) {
-				Location l = camera.getGPSLocation();
-				distanceAway = (int) l.distanceTo(nextLocation);
-				if(distanceAway < 5) {
-					//Add the next poi if within 5m of the current
-					markers.peek().setColor(Color.blue());
-					addNextPoi();
+				if(minAccuracyReached){
+					Location l = camera.getGPSLocation();
+					distanceAway = (int) l.distanceTo(nextLocation);
+					if(distanceAway < 5) {
+						//Add the next poi if within 5m of the current
+						markers.peek().setColor(Color.blue());
+						addNextPoi();
+					}
+					updateDistanceInfo();
+					distanceInfo.setText("Next location: " + nextPlace + ", Distance: " + distanceAway +"m");
 				}
-				updateDistanceInfo();
-
-				/*distanceInfo.setText(
-				"Current location: Lat: " + l.getLatitude() + " Long: " + l.getLongitude() +
-				"Next location: " + nextPlace + " Lat: " + nextLocation.getLatitude() + " long: " + nextLocation.getLongitude() +
-				" Distance: " + distance +" m");*/
-				distanceInfo.setText("Next location: " + nextPlace + ", Distance: " + distanceAway +"m");
 				return true; //So that it is never removed from the list
 			}
 			
@@ -288,7 +299,8 @@ public class CustomARSetup extends Setup {
 	public void _e2_addElementsToGuiSetup(GuiSetup guiSetup, Activity activity) {
 		this.guiSetup = guiSetup;
 		guiSetup.addViewToTop(minAccuracyAction.getView());
-	
+		
+		//Help Button
 		guiSetup.addImangeButtonToRightView(
 				R.drawable.ic_action_help,
 				new Command() {
@@ -299,41 +311,46 @@ public class CustomARSetup extends Setup {
 						return true;
 					}
 				});
+		
+		//Next Poi Button
 		guiSetup.addButtonToBottomView(new Command() {
 			
 			@Override
 			public boolean execute() {
-				skipPoi();
+				if(minAccuracyReached) {
+					skipPoi();
+				}
+				else {
+					CommandShowToast.show(getActivity(), "Waiting on GPS accuracy");
+				}
 				return true;
 			}
 			
 		}, "Next");
+		
+		//Previous Poi Button
 		guiSetup.addButtonToBottomView(new Command() {
 			
 			@Override
 			public boolean execute() {
-				previousPoi();
+				if(minAccuracyReached) {
+					previousPoi();
+				}
+				else {
+					CommandShowToast.show(getActivity(), "Waiting on GPS accuracy");
+				}
 				return true;
+				
 			}
 			
 		}, "Previous");
-		/*guiSetup.addButtonToBottomView(new Command() {
-
-			@Override
-			public boolean execute() {
-				if (mapView.getVisibility() == View.VISIBLE)
-					mapView.setVisibility(View.GONE);
-				else
-					mapView.setVisibility(View.VISIBLE);
-				return true;
-			}
-			
-		}, "Show/Hide map");*/
+		
+		//Show Map Button
 		guiSetup.addButtonToBottomView(new Command() {
 
 			@Override
 			public boolean execute() {
-					if(isOnline()) {
+					if(isOnline() && minAccuracyReached) {
 						Intent intent = new Intent(getActivity(), MapActivity.class);
 						Poi[] p = theActiveTour.getAllPoisAsArray();
 						int n = p.length;
@@ -353,12 +370,19 @@ public class CustomARSetup extends Setup {
 						getActivity().startActivity(intent);
 						return true;
 					}
-					Log.d("CustomARSetup.Show map", "No internet connection, not displaying map.");
+					if(!isOnline()){
+						Log.d("CustomARSetup.Show map", "No internet connection, not displaying map.");
+						CommandShowToast.show(getActivity(), "No internet connection");
+					}
+					else {
+						CommandShowToast.show(getActivity(), "Waiting on GPS accuracy");
+					}
 					return false;
 			}
 			
 			}, "Show map");
 		
+		//Text stating the next location and the distance to it
 		guiSetup.addViewToBottom(distanceInfo);
 	}
 	
