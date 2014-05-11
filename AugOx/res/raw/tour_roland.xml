@@ -1,0 +1,35 @@
+<data>
+	<meta>
+		<id>5</id>
+		<name>Test Tour Roland</name>
+		<info>Info for Roland's Test Tour</info>
+		<size>2</size>
+	</meta>
+	
+	<tour>
+		<poi>
+			<name>Keble Liddon Quad</name>
+			<latitude>51.759100</latitude>
+			<longitude>-1.257818</longitude>
+			<info>Some Test Data \n\n\n\n Some More Lines\n\n\n\n\n\n\n\n\n\n\n Test \n\n\n\n\n A really really really really really really really really really really really really really really really really really long sentence</info>
+			<hashtags>"Keble Quad"</hashtags>
+		</poi>
+	
+		<poi>
+			<name>Magic Gate</name>
+			<latitude>51.757922</latitude>
+			<longitude>-1.257206</longitude>
+			<info>Keble Magic Gate</info>
+			<hashtags></hashtags>
+		</poi>
+		
+		<poi>
+			<name>Sloane Robinson Bldg</name>
+			<latitude>51.758717</latitude>
+			<longitude>-1.258705</longitude>
+			<info>SloRob</info>
+			<hashtags>Sloane Robinson</hashtags>
+		</poi>
+		
+	</tour>
+</data>	

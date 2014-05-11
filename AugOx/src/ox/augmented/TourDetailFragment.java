@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.google.android.gms.maps.MapView;
 
-import de.rwth.ARActivityPlusMaps;
 import ox.augmented.model.Poi;
 import ox.augmented.model.Tour;
 import system.ArActivity;

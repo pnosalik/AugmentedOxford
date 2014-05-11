@@ -24,13 +24,16 @@ import actions.ActionCalcRelativePos;
 import actions.ActionRotateCameraBuffered;
 import actions.ActionWaitForAccuracy;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-
 import commands.Command;
 
 public class CustomARSetup extends Setup {
@@ -155,6 +158,22 @@ public class CustomARSetup extends Setup {
 		nextLocation.setLongitude(theCurrentPoi.getLongitude());
 	}
 	
+	/* Display Help dialog screen */
+	private void help() {
+	AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());	
+	View view = View.inflate(getActivity(), R.layout.help_layout, null);
+	builder.setView(view);
+	builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+		}
+	});
+	AlertDialog dialog = builder.create();
+	dialog.show();
+	}
+	
 	private void skipPoi() {
 		markers.peek().setColor(Color.blue());
 		addNextPoi();
@@ -269,25 +288,17 @@ public class CustomARSetup extends Setup {
 	public void _e2_addElementsToGuiSetup(GuiSetup guiSetup, Activity activity) {
 		this.guiSetup = guiSetup;
 		guiSetup.addViewToTop(minAccuracyAction.getView());
-		
-		/*final GMap map = GMap.newDefaultGMap((MapActivity) getActivity(),GoogleMapsKey.pc1DebugKey);
-		try {
-			map.addOverlay(new CustomItemizedOverlay(unvisitedPins, IO
-					.loadDrawableFromId(getActivity(),
-							de.rwth.R.drawable.mapdotgreen)));
-			map.addOverlay(new CustomItemizedOverlay(visitedPins, IO
-					.loadDrawableFromId(getActivity(),
-							de.rwth.R.drawable.mapdotblue)));
+	
+		guiSetup.addImangeButtonToRightView(
+				R.drawable.ic_action_help,
+				new Command() {
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
-		//mapView.getMap();
-		/*((ViewGroup) mapView.getParent()).removeView(mapView);
-		if (mapView.getParent()!=null) {
-			((ViewGroup) mapView.getParent()).removeView(mapView);
-		}
-		guiSetup.addViewToBottomRight(mapView, 2f, 200);*/
+					@Override
+					public boolean execute() {
+						help();
+						return true;
+					}
+				});
 		guiSetup.addButtonToBottomView(new Command() {
 			
 			@Override
@@ -322,31 +333,44 @@ public class CustomARSetup extends Setup {
 
 			@Override
 			public boolean execute() {
-				Intent intent = new Intent(getActivity(), MapActivity.class);
-				Poi[] p = theActiveTour.getAllPoisAsArray();
-				int n = p.length;
-				double[] lats = new double[n];
-				double[] longs = new double[n];
-				String[] names = new String[n];
-				for(int i = 0;i < n; i++) {
-					lats[i] = p[i].getLatitude();
-					longs[i] = p[i].getLongitude();
-					names[i] = p[i].getName();
-				}
-				intent.putExtra("LATS", lats);
-				intent.putExtra("LONGS", longs);
-				intent.putExtra("NAMES", names);
-				intent.putExtra("CURRENT", theActiveTour.getIndex()-1);
-				
-				getActivity().startActivity(intent);
-				return true;
+					if(isOnline()) {
+						Intent intent = new Intent(getActivity(), MapActivity.class);
+						Poi[] p = theActiveTour.getAllPoisAsArray();
+						int n = p.length;
+						double[] lats = new double[n];
+						double[] longs = new double[n];
+						String[] names = new String[n];
+						for(int i = 0;i < n; i++) {
+							lats[i] = p[i].getLatitude();
+							longs[i] = p[i].getLongitude();
+							names[i] = p[i].getName();
+						}
+						intent.putExtra("LATS", lats);
+						intent.putExtra("LONGS", longs);
+						intent.putExtra("NAMES", names);
+						intent.putExtra("CURRENT", theActiveTour.getIndex()-1);
+						
+						getActivity().startActivity(intent);
+						return true;
+					}
+					Log.d("CustomARSetup.Show map", "No internet connection, not displaying map.");
+					return false;
 			}
 			
-		}, "Show map");
+			}, "Show map");
 		
 		guiSetup.addViewToBottom(distanceInfo);
 	}
 	
+	public boolean isOnline() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
+	}
 	
 
 }

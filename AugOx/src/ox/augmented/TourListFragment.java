@@ -13,19 +13,30 @@ import ox.augmented.model.Poi;
 import ox.augmented.model.Tour;
 import util.Log;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.ActionBar.OnNavigationListener;
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -55,6 +66,9 @@ public class TourListFragment extends ListFragment {
 	 * The current activated item position. Only used on tablets.
 	 */
 	private int mActivatedPosition = ListView.INVALID_POSITION;
+	
+	/** The current activity */
+	private Activity currentActivity;
 
 	/**
 	 * A callback interface that all activities containing this fragment must
@@ -292,6 +306,22 @@ public class TourListFragment extends ListFragment {
 		resetAdapter();
 	}
 	
+	/* Display Help dialog screen */
+	private void help() {
+	AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());	
+	View view = View.inflate(getActivity(), R.layout.help_layout, null);
+	builder.setView(view);
+	builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub
+		}
+	});
+	AlertDialog dialog = builder.create();
+	dialog.show();
+	}
+	
 	/* Inflate action bar menu items. */
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 	    // Inflate the menu items for use in the action bar
@@ -301,11 +331,32 @@ public class TourListFragment extends ListFragment {
 	/* Define behaviour for action bar menu items. */
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
-		if (id == R.id.action_refresh) {
+		 
+		switch (id) {
+
+		case R.id.action_refresh:
+			refresh();
+			// display message
+			Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+			break;
+		case R.id.action_help:
+			help();
+			// display message
+			Toast.makeText(getActivity(), "Help", Toast.LENGTH_SHORT).show();
+			break;
+		}
+	/*	}
+	        R.id.action_refresh) {
 			refresh();
 			// display message
 			Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
 		}
+		if(id == R.id.action_help) {
+			help();
+			// display message
+			Toast.makeText(getActivity(), "Help", Toast.LENGTH_SHORT).show();
+		}
+    */
 		return getActivity().onOptionsItemSelected(item);
 	}
 	

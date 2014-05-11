@@ -10,6 +10,14 @@
         android:showAsAction="always"
         app:showAsAction="always" />
  
+    <!-- Help -->
+	<item 
+		android:id="@+id/action_help"
+		android:icon="@drawable/ic_action_help"
+		android:title="@string/action_help"
+		android:showAsAction="always" 
+		app:showAsAction="always" />
+		
     <!-- Settings, always in overflow -->
     <item
         android:id="@+id/action_settings"
