@@ -350,7 +350,7 @@ public class CustomARSetup extends Setup {
 
 			@Override
 			public boolean execute() {
-					if(isOnline() && minAccuracyReached) {
+					if(isOnline()) {
 						Intent intent = new Intent(getActivity(), MapActivity.class);
 						Poi[] p = theActiveTour.getAllPoisAsArray();
 						int n = p.length;
@@ -365,18 +365,13 @@ public class CustomARSetup extends Setup {
 						intent.putExtra("LATS", lats);
 						intent.putExtra("LONGS", longs);
 						intent.putExtra("NAMES", names);
-						intent.putExtra("CURRENT", theActiveTour.getIndex()-1);
+						intent.putExtra("CURRENT", Math.max(0,theActiveTour.getIndex()-1));
 						
 						getActivity().startActivity(intent);
 						return true;
 					}
-					if(!isOnline()){
-						Log.d("CustomARSetup.Show map", "No internet connection, not displaying map.");
-						CommandShowToast.show(getActivity(), "No internet connection");
-					}
-					else {
-						CommandShowToast.show(getActivity(), "Waiting on GPS accuracy");
-					}
+					Log.d("CustomARSetup.Show map", "No internet connection, not displaying map.");
+					CommandShowToast.show(getActivity(), "No internet connection");
 					return false;
 			}
 			

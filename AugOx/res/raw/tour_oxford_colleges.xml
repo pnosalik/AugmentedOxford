@@ -1,0 +1,277 @@
+<data>
+	<meta>
+		<id>OXCLG</id>
+		<name>Oxford Colleges</name>
+		<info>Colleges of the University of Oxford</info>
+		<size>38</size>
+	</meta>
+	
+	<tour>
+        <poi>
+            <name>Brasenose College</name>
+            <latitude>51.753274</latitude>
+            <longitude>-1.254324</longitude>
+            <info>Founded in 1509, this college is home to one of the world's oldest boat clubs, which beat Jesus College Boat Club in the first modern rowing race in 1815.</info>
+            <hashtags>"Brasenose College"</hashtags>
+        </poi>
+		<poi>
+            <name>All Souls College</name>
+            <latitude>51.75375</latitude>
+            <longitude>-1.25334</longitude>
+            <info>Founded in 1438, with the full name of The Warden and the College of the Souls of All Faithful People Deceased in the University of Oxford, all students here are actually Fellows of the college.</info>
+            <hashtags>"All Souls College"</hashtags>
+        </poi>
+		<poi>
+            <name>Hertford College</name>
+            <latitude>51.754065</latitude>
+            <longitude>-1.253847</longitude>
+            <info>Founded in 1282, this college was originally known as Hart Hall, becoming Magdalen Hall in 1448, and finally Hertford College in 1740. It is known for its iconic bridge, the Bridge of Sighs.</info>
+            <hashtags>"Hertford College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Harris Manchester College</name>
+            <latitude>51.755723</latitude>
+            <longitude>-1.251747</longitude>
+            <info>Founded in 1786, the college started life as the Manchester Academy in 1786, located in Manchester. It then moved to York, back to Manchester, and then London, before opening in Oxford in 1893.</info>
+            <hashtags>"Harris Manchester College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Mansfield College</name>
+            <latitude>51.757603</latitude>
+            <longitude>-1.252210</longitude>
+            <info>Founded in 1838, this college was originally Spring Hill College, in Birmingham, and became Mansfield College when it moved to Oxford in 1886.</info>
+            <hashtags>"Mansfield College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Linacre College</name>
+            <latitude>51.759253</latitude>
+            <longitude>-1.250475</longitude>
+            <info>Founded in 1962, this college was the first college in Oxford to accept both men and women on an equal basis.</info>
+            <hashtags>"Linacre College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>St Catherine's College</name>
+            <latitude>51.757141</latitude>
+            <longitude>-1.244905</longitude>
+            <info>Founded in 1962, this college was founded by historian Alan Bullock, who later became Vice-Chancellor of Oxford University as a whole.</info>
+            <hashtags>"St Catherine's College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>New College</name>
+            <latitude>51.754893</latitude>
+            <longitude>-1.250636</longitude>
+            <info>Founded in 1379, this college gets its name because its official name, College of St Mary, was originally shared by Oriel College, hence it was referred to as the "New College of St Mary".</info>
+            <hashtags>"New College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Magdalen College</name>
+            <latitude>51.751937</latitude>
+            <longitude>-1.247479</longitude>
+            <info>Founded in 1458, this college is home to the famous Magdalen Tower, from which the college choir sings on May the 1st at 6am every year.</info>
+            <hashtags>"Magdalen College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Saint Hilda's College</name>
+            <latitude>51.748877</latitude>
+            <longitude>-1.245227</longitude>
+            <info>Founded in 1893, this college was women-only until 2008.</info>
+            <hashtags>"Saint Hilda's College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>St Edmund Hall</name>
+            <latitude>51.752603</latitude>
+            <longitude>-1.249805</longitude>
+            <info>Founded in 1278, this college is arguably the oldest in Oxford. Its site contains a graveyard with a few notable names in it, including one whose date of death is engraved as February 31st.</info>
+            <hashtags>"St Edmund Hall Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Queen's College</name>
+            <latitude>51.752754</latitude>
+            <longitude>-1.251115</longitude>
+            <info>Founded in 1341, this college is the fifth wealthiest college in Oxford, with buildings on its site designed by Sir Christopher Wren and Nicholas Hawksmoor.</info>
+            <hashtags>"Queen's College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>University College</name>
+            <latitude>51.752750</latitude>
+            <longitude>-1.252136</longitude>
+            <info>Founded in 1249, this college is one of the oldest in Oxford, and names among its alumni Bill Clinton, C. S. Lewis, and Stephen Hawking.</info>
+            <hashtags>"University College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Merton College</name>
+            <latitude>51.751402</latitude>
+            <longitude>-1.252122</longitude>
+            <info>Founded in 1264, this college is one of the oldest in Oxford, and one of the wealthiest. J. R. R. Tolkein was Professor of English here from 1945 to 1959.</info>
+            <hashtags>"Merton College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Corpus Christi College</name>
+            <latitude>51.751109</latitude>
+            <longitude>-1.253776</longitude>
+            <info>Founded in 1517, this college has only around 230 undergraduates, making it one of the smallest colleges. It was also key in the creation of the King James Bible, published in 1611.</info>
+            <hashtags>"Corpus Christi College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Oriel College</name>
+            <latitude>51.751794</latitude>
+            <longitude>-1.253934</longitude>
+            <info>Founded in 1324, this college incorporates four medieval halls within its site - Bedel Hall, St Mary Hall, St Martin Hall and Tackley's Hall.</info>
+            <hashtags>"Oriel College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Lincoln College</name>
+            <latitude>51.753092</latitude>
+            <longitude>-1.256046</longitude>
+            <info>Founded in 1427, this college is the 9th oldest in Oxford University, and was attended by famous children's author Dr. Seuss.</info>
+            <hashtags>"Lincoln College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Jesus College</name>
+            <latitude>51.753589</latitude>
+            <longitude>-1.256391</longitude>
+            <info>Founded in 1571, this college was home to Harold Wilson (twice British Prime Minister) and T. E. Lawrence, otherwise known as Lawrence of Arabia.</info>
+            <hashtags>"Jesus College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Exeter College</name>
+            <latitude>51.753666</latitude>
+            <longitude>-1.256360</longitude>
+            <info>Founded in 1314, this college names J. R. R. Tolkein and Alan Bennett among its alumni.</info>
+            <hashtags>"Exeter College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Trinity College</name>
+            <latitude>51.754590</latitude>
+            <longitude>-1.255541</longitude>
+            <info>Founded in 1555, this college has produced 3 British prime ministers, including William Pitt the Elder.</info>
+            <hashtags>"Trinity College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Wadham College</name>
+            <latitude>51.755621</latitude>
+            <longitude>-1.254837</longitude>
+            <info>Founded in 1610, this college was where Sir Christopher Wren spent his time in Oxford, who was part of the Oxford Philosophical Club with other famous scientists such as Robert Boyle and Robert Hooke, and which went on to become the Royal Society.</info>
+            <hashtags>"Wadham College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Keble College</name>
+            <latitude>51.759065</latitude>
+            <longitude>-1.257117</longitude>
+            <info>Founded in 1870, this college is notable for its neo-gothic red-brick buildings, designed by William Butterfield.</info>
+            <hashtags>"Keble College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Lady Margaret Hall</name>
+            <latitude>51.764462</latitude>
+            <longitude>-1.254726</longitude>
+            <info>Founded in 1878, this college was the first women's college in Oxford, only beginning to accept men from 1979 onwards.</info>
+            <hashtags>"Lady Margaret Hall Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Wycliffe Hall</name>
+            <latitude>51.762809</latitude>
+            <longitude>-1.260321</longitude>
+            <info>Founded in 1877, this college provides theological training for candidates for ordained ministry in the Church of England, among other churches.</info>
+            <hashtags>"Wycliffe Hall Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Kellogg College</name>
+            <latitude>51.763859</latitude>
+            <longitude>-1.260700</longitude>
+            <info>Founded in 1990, this college is a graduate college focusing on postgraduate and lifelong learning, and has almost 3 times as many part-time students as it does full-time graduates.</info>
+            <hashtags>"Kellogg College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Wolfson College</name>
+            <latitude>51.771007</latitude>
+            <longitude>-1.255183</longitude>
+            <info>Founded in 1965, this college is an all-graduate college that was originally known as Iffley College.</info>
+            <hashtags>"Wolfson College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>St Hugh's College</name>
+            <latitude>51.767452</latitude>
+            <longitude>-1.262777</longitude>
+            <info>Founded in 1886, this college was an all-women college until 1986. It has extensive gardens that have earnt it a reputation as one of the most attractive colleges in Oxford.</info>
+            <hashtags>"St Hugh's College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>St. Antony's College</name>
+            <latitude>51.763394</latitude>
+            <longitude>-1.263606</longitude>
+            <info>Founded in 1950, this college was funded by the gifts of Sir Antonin Besse of Aden.</info>
+            <hashtags>"St. Antony's College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>St. Anne's College</name>
+            <latitude>51.762088</latitude>
+            <longitude>-1.262626</longitude>
+            <info>Founded in 1879, this college received a university charter to be officially founded as a women-only college in 1952.</info>
+            <hashtags>"St. Anne's College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Green Templeton College</name>
+            <latitude>51.761216</latitude>
+            <longitude>-1.262379</longitude>
+            <info>Founded in 2008, this college was created by the merging of Green College and Templeton College, and is an all-graduate college.</info>
+            <hashtags>"Green Templeton College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Somerville College</name>
+            <latitude>51.759693</latitude>
+            <longitude>-1.261421</longitude>
+            <info>Founded in 1879, this college was one of the first women's colleges in Oxford, though since beginning to accept male students in 1994, it is now around 50% male.</info>
+            <hashtags>"Somerville College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>St Benet's Hall</name>
+            <latitude>51.757852</latitude>
+            <longitude>-1.260552</longitude>
+            <info>Founded in 1897, this college is a Benedictine foundation that was originally founded for the secular education of monks.</info>
+            <hashtags>"St Benet's Hall Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>St John's College</name>
+            <latitude>51.756027</latitude>
+            <longitude>-1.259410</longitude>
+            <info>Founded in 1555, this college is the wealthiest in Oxford, and owns large amounts of the centre of the city.</info>
+            <hashtags>"St John's College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Worcester College</name>
+            <latitude>51.754908</latitude>
+            <longitude>-1.263319</longitude>
+            <info>Founded in 1283, this college was originally known as Gloucester College until it became Worcester College in 1714.</info>
+            <hashtags>"Worcester College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Balliol College</name>
+            <latitude>51.75415</latitude>
+            <longitude>-1.25881</longitude>
+            <info>Founded in 1263, this college has 3 former prime ministers and five Nobel laureates among its alumni.</info>
+            <hashtags>"Balliol College"</hashtags>
+        </poi>
+		<poi>
+            <name>St Peter's College</name>
+            <latitude>51.752609</latitude>
+            <longitude>-1.260471</longitude>
+            <info>Founded in 1929, this college occupies the site of two of the university's oldest Inns, dating from the 13th Century.</info>
+            <hashtags>"St Peter's College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Pembroke College</name>
+            <latitude>51.750123</latitude>
+            <longitude>-1.257516</longitude>
+            <info>Founded in 1624, this college is where J. R. R. Tolkein was a fellow here from 1925 to 1945, during which time he wrote both The Hobbit and the first two books of The Lord of the Rings.</info>
+            <hashtags>"Pembroke College Oxford"</hashtags>
+        </poi>
+		<poi>
+            <name>Christ Church</name>
+            <latitude>51.750156</latitude>
+            <longitude>-1.256822</longitude>
+            <info>Founded in 1546, this college is also the cathedral church of the diocese of Oxford, and lists 13 British prime ministers among its alumni.</info>
+            <hashtags>"Christ Church Oxford"</hashtags>
+        </poi>
+    </tour>
+</data>

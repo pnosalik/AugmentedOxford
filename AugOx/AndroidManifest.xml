@@ -69,13 +69,6 @@
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
         </activity>
-        
-        <activity
-            android:name="de.rwth.ARActivityPlusMaps"
-            android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape" >
-        </activity>
 
         <!-- Custom List is used to easily display lists of any type of object -->
         <activity android:name="gui.CustomListActivity" >
