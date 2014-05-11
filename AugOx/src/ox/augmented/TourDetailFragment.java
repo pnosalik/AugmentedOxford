@@ -103,7 +103,7 @@ public class TourDetailFragment extends Fragment {
 	/* Converts list of Pois into String containing numbered Poi names. */			
 	private String listToText(List<Poi> pois) {
 		String result = "";
-		int count = 0;
+		int count = 1; //normal counting starts at 1!
 		for(Poi p : pois) {
 			result+=(count +". " + p.getName() + "\n");
 			count++;
