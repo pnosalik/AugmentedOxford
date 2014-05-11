@@ -2,8 +2,6 @@ package ox.augmented;
 
 import java.util.List;
 
-import com.google.android.gms.maps.MapView;
-
 import ox.augmented.model.Poi;
 import ox.augmented.model.Tour;
 import system.ArActivity;
@@ -14,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * A fragment representing a single Tour detail screen. This fragment is either
@@ -51,9 +49,7 @@ public class TourDetailFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (getArguments().containsKey(ARG_ITEM_ID)) {
-			// Load the content specified by the fragment
-			// arguments. In a real-world scenario, use a Loader
-			// to load content from a content provider.
+			// Load the content specified by the tour, accessed from the hash map. 
 			mItem = TourListFragment.tourMap.get(getArguments().getString(
 					ARG_ITEM_ID));
 		}
@@ -66,7 +62,7 @@ public class TourDetailFragment extends Fragment {
 				container, false);
 
 		/* Show each tour's details when it is selected.
-		 * TODO: Pass remaining tour details to the child Views within rootView.
+		 * These are passed to the child Views within rootView.
 		 * These are declared in fragment_tour_detail.xml
 		 */
 		if (mItem != null) {
@@ -104,11 +100,13 @@ public class TourDetailFragment extends Fragment {
 		}
 		return rootView;
 	}
-	/* Converts list of Pois into String containing bulleted Poi names. */			
+	/* Converts list of Pois into String containing numbered Poi names. */			
 	private String listToText(List<Poi> pois) {
 		String result = "";
+		int count = 1; //normal counting starts at 1!
 		for(Poi p : pois) {
-			result+=(" - " + p.getName() + "\n");
+			result+=(count +". " + p.getName() + "\n");
+			count++;
 		}
 		return result;
 	}

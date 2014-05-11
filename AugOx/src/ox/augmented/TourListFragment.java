@@ -13,30 +13,19 @@ import ox.augmented.model.Poi;
 import ox.augmented.model.Tour;
 import util.Log;
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.app.ActionBar.OnNavigationListener;
 import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -164,9 +153,9 @@ public class TourListFragment extends ListFragment {
 	
 	/* Method for sorting the list of Tours according to user preferences. */
 	public void sortTours() { 
-		/* TODO: Black magic for initializing the String "sortOrder" with the user's choice for a sorting criterion. */
+		// The string "sortOrder" is initialised with the user's choice for a sorting criterion. */
 		String criteria[] = getResources().getStringArray(R.array.sorting_criteria_list);
-		//default, alphabetical, proximity
+		// order: default, alphabetical, proximity
 		if(sortOrder.equals(criteria[1]))
 		{
 			AlphaComparator alphaComp = new AlphaComparator();
@@ -183,6 +172,7 @@ public class TourListFragment extends ListFragment {
 	}
 	
 	// Different comparator classes for sorting the list of tours according to user preferences .
+	/* Sort alphabetically */
 	private class AlphaComparator implements Comparator<Tour> {
 
 		@Override
@@ -190,6 +180,7 @@ public class TourListFragment extends ListFragment {
 		
 	}
 	
+	/* Sort by proximity */
 	private class ProxComparator implements Comparator<Tour> {
 
 		@Override
