@@ -83,9 +83,14 @@ public class TourDetailFragment extends Fragment {
 					@Override
 					public void onClick(View v) {
 						CustomARSetup custom = new CustomARSetup();
-						custom.context = currentActivity;
-						//custom.mapView = (MapView) getSupportFragmentManager().findFragmentByTag("FragmentContainingMap").getView().findViewById(R.id.map);
-						//((ViewGroup) custom.mapView.getParent()).removeView(custom.mapView);
+						//custom.context = currentActivity;
+						//edited to use getActivity(), avoiding NPEs when restarting tour, when currentActivity is not initialised 
+						custom.context = getActivity();
+						currentActivity = getActivity();
+						/*
+						 * custom.mapView = (MapView) getSupportFragmentManager().findFragmentByTag("FragmentContainingMap").getView().findViewById(R.id.map);
+						 * ((ViewGroup) custom.mapView.getParent()).removeView(custom.mapView);
+						 */
 						custom.setTour(mItem);
 						ArActivity.startWithSetup(currentActivity, custom); 
 						/*
