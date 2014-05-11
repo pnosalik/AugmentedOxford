@@ -1,14 +1,10 @@
 package ox.augmented;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 /**
  * An activity representing a list of Tours. This activity has different
@@ -25,7 +21,6 @@ import android.widget.Toast;
  * This activity also implements the required {@link TourListFragment.Callbacks}
  * interface to listen for item selections.
  * 
- * TODO: this may be adapted into the UI in MainActivity.
  */
 public class TourListActivity extends FragmentActivity implements
 		TourListFragment.Callbacks {
