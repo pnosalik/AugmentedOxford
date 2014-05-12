@@ -23,8 +23,8 @@
     </string-array>
 
     <string name="title_activity_map">MapActivity</string>
-    <string name="button_animate_route">Animate</string>
-    <string name="button_display_route">Route</string>
+    <string name="button_animate_route">A</string>
+    <string name="button_display_route">R</string>
 	<string name="help_text">The left panel shows the tours of Oxford that you can choose from.\n
 	    Use the dropdown menu on the top bar to change how the tours are sorted. This can be done in 3 ways:\n
 	    - by filename (default)\n
@@ -38,7 +38,7 @@
         POINTS OF INTEREST:\n
         The name and distance of the next location are on the bottom of the screen. Use the Previous or Next buttons to skip points.\n
         When you reach the next point of interest, the app will display information about it in a box, including recent tweets.\n
-        A green marker may be visible on your screen when you reach the point.
+        A green marker may be visible on your screen when you reach the point.\n
 	    To return to the tour selection screen, press your device\'s Back button.\n 
 	    MAP:\n
         Click Show Map to display a map of the tour (needs internet). You can then display and animate the route to the next point.\n
