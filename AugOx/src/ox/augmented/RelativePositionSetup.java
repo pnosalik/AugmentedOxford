@@ -1,5 +1,10 @@
 package ox.augmented;
 
+/**
+ * A clone of the CustomARSetup displaying markers in the virtual world randomly around the user
+ * instead of using the GPS coordinates of the given Pois. * 
+ */
+
 import geo.GeoObj;
 import gl.Color;
 import gl.CustomGLSurfaceView;
@@ -9,6 +14,7 @@ import gl.GLFactory;
 import gui.GuiSetup;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Stack;
 
 import ox.augmented.data.TourCreator;
@@ -17,6 +23,7 @@ import ox.augmented.model.Tour;
 import system.EventManager;
 import system.Setup;
 import util.Log;
+import util.Vec;
 import worldData.SystemUpdater;
 import worldData.World;
 import actions.Action;
@@ -38,7 +45,7 @@ import android.widget.TextView;
 import commands.Command;
 import commands.ui.CommandShowToast;
 
-public class CustomARSetup extends Setup {
+public class RelativePositionSetup extends Setup {
 	public int activeTourID; //set by caller module
 	private Tour theActiveTour;
 	private Poi theCurrentPoi;
@@ -57,15 +64,15 @@ public class CustomARSetup extends Setup {
 	private Stack<GeoObj> markers; //A stack of the markers corresponding to the displayed pois
 	private Stack<Poi> markedPois; //A Stack of the displayed Pois
 	
-	private static final String LOG_TAG = "CustomARSetup";
+	private static final String LOG_TAG = "RelativePositionSetup";
 	
 	public Context context;
 	//public MapView mapView;
-	//public CustomARSetup(Context mainActivity){
+	//public RelativePositionSetup(Context mainActivity){
 	//	this.context = mainActivity;
 	//}
 	
-	public CustomARSetup(){
+	public RelativePositionSetup(){
 		
 	}
 	
@@ -85,7 +92,7 @@ public class CustomARSetup extends Setup {
 		world = new World(camera);
 		markers = new Stack<GeoObj>();
 		markedPois = new Stack<Poi>();
-		minAccuracyReached = false;
+		minAccuracyReached = true;
 		distanceInfo = new TextView(getActivity());
 		
 		//PRECONDITION: setTour(int) or setTour(Tour) has already been called before creating this Setup
@@ -119,7 +126,11 @@ public class CustomARSetup extends Setup {
 			theCurrentPoi = p;
 			updateDistanceInfo();
 
-			final GeoObj o = new GeoObj(p.getLatitude(),p.getLongitude());
+			//final GeoObj o = new GeoObj(p.getLatitude(),p.getLongitude());
+			Random r = new Random();
+			final GeoObj o = new GeoObj();
+			o.setVirtualPosition(new Vec(r.nextInt(10),r.nextInt(10),0));
+			
 			o.setComp(objectFactory.newDiamond(Color.green())); //Green represents unvisited
 			
 			o.setOnClickCommand(new Command(){
@@ -243,7 +254,7 @@ public class CustomARSetup extends Setup {
 			GLFactory objectFactory, GeoObj currentPosition) {
 		this.objectFactory = objectFactory;
 		glRenderer.addRenderElement(world);
-		//addNextPoi();
+		addNextPoi();
 	}
 
 	@Override
@@ -254,7 +265,7 @@ public class CustomARSetup extends Setup {
 		eventManager.addOnOrientationChangedAction(rotateGLCameraAction);
 		eventManager.addOnLocationChangedAction(new ActionCalcRelativePos(world, camera));
 		
-		minAccuracyAction = new ActionWaitForAccuracy(getActivity(), 24.0f, 10) {
+		/*minAccuracyAction = new ActionWaitForAccuracy(getActivity(), 24.0f, 10) {
 			@Override
 			public void minAccuracyReachedFirstTime(Location l,
 					ActionWaitForAccuracy a) { //Add the first Poi once there is good signal
@@ -266,7 +277,7 @@ public class CustomARSetup extends Setup {
 				}
 			}
 		};
-		eventManager.addOnLocationChangedAction(minAccuracyAction);
+		eventManager.addOnLocationChangedAction(minAccuracyAction);*/
 		eventManager.addOnLocationChangedAction(new Action() {
 			
 			@Override
@@ -301,7 +312,7 @@ public class CustomARSetup extends Setup {
 	@Override
 	public void _e2_addElementsToGuiSetup(GuiSetup guiSetup, Activity activity) {
 		this.guiSetup = guiSetup;
-		guiSetup.addViewToTop(minAccuracyAction.getView());
+		//guiSetup.addViewToTop(minAccuracyAction.getView());
 		
 		//Help Button
 		guiSetup.addImangeButtonToRightView(
@@ -373,7 +384,7 @@ public class CustomARSetup extends Setup {
 						getActivity().startActivity(intent);
 						return true;
 					}
-					Log.d("CustomARSetup.Show map", "No internet connection, not displaying map.");
+					Log.d("RelativePositionSetup.Show map", "No internet connection, not displaying map.");
 					CommandShowToast.show(getActivity(), "No internet connection");
 					return false;
 			}

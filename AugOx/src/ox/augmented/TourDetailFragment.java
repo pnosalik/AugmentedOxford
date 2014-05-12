@@ -83,6 +83,7 @@ public class TourDetailFragment extends Fragment {
 					@Override
 					public void onClick(View v) {
 						CustomARSetup custom = new CustomARSetup();
+						//RelativePositionSetup custom = new RelativePositionSetup(); //For Poi markers which don't use GPS coordinates
 						//custom.context = currentActivity;
 						//edited to use getActivity(), avoiding NPEs when restarting tour, when currentActivity is not initialised 
 						custom.context = getActivity();
