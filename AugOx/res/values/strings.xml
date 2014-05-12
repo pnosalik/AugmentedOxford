@@ -45,4 +45,5 @@
         Blue markers are visited points, green is the next point on the tour, purple are later points on the tour.\n
         To return to the camera view from the map, press your device\'s Back button.
 	    </string>
+	<string name="help_title">Help</string>
 </resources>

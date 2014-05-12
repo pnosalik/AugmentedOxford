@@ -35,7 +35,7 @@ public class TourListActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tour_list);
-		// CHanged: DON'T show the Up button in the action bar, as this is now the main activity.
+		// Changed: DON'T show the Up button in the action bar, as this is now the main activity.
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 
 		if (findViewById(R.id.tour_detail_container) != null) {

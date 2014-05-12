@@ -1,18 +1,34 @@
 <?xml version ="1.0" encoding ="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical" >
-	
-	<TextView
-		android:id="@+id/text_help_ar"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentTop="true"
-		android:layout_centerHorizontal="true"
-		android:layout_marginTop="56dp"
-		android:background="#000033"
-		android:text="@string/help_ar_text" />
+
+    <TextView
+        android:id="@+id/help_title"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:paddingTop="10dp"
+        android:gravity="center_horizontal"  
+        android:background="@color/actionbar_background" 
+        android:text="@string/help_title"
+        android:textSize="22sp"
+        android:textColor="@color/custom_theme_color" />
+    
+    <ScrollView
+        android:id="@+id/ScrollView01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" >
+
+        <TextView
+            android:id="@+id/text_help_ar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="56dp"
+            android:text="@string/help_ar_text"
+            android:textColor="@color/actionbar_background"
+            android:textSize="20sp" />
+    </ScrollView>
 		
-		
-</RelativeLayout>
+</LinearLayout>
