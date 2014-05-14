@@ -32,21 +32,21 @@
 			<name>Museum of Natural History</name>
 			<latitude>51.758571</latitude>
 			<longitude>-1.256047</longitude>
-			<info>Lawn of Museum</info>
+			<info>The Oxford University Museum of Natural History houses the University's scientific collections of zoological, entomological and geological specimens. The Museum itself is a Grade 1 listed building, renowned for its spectacular neo-Gothic architecture. Among its most famous features are the Oxfordshire dinosaurs, the dodo, and the swifts in the tower.</info>
 			<hashtags>"@morethanadodo"</hashtags>
 		</poi>
 		<poi>
 			<name>Radcliffe Science Library</name>
 			<latitude>51.757890</latitude>
 			<longitude>-1.255993</longitude>
-			<info>RSL</info>
+			<info>Central University library for science students. Originally in the Rad Cam.</info>
 			<hashtags></hashtags>
 		</poi>
 		<poi>
     		<name>Wadham College</name>
     		<latitude>51.755621</latitude>
     		<longitude>-1.254837</longitude>
-    		<info>Wadham College\n\n Founded in 1610, this college was where Sir Christopher Wren spent his time in Oxford, who was part of the Oxford Philosophical Club with other famous scientists such as Robert Boyle and Robert Hooke, and which went on to become the Royal Society.</info>
+    		<info>Founded in 1610, this college was where Sir Christopher Wren spent his time in Oxford, who was part of the Oxford Philosophical Club with other famous scientists such as Robert Boyle and Robert Hooke, and which went on to become the Royal Society.</info>
 			<hashtags>"Wadham College Oxford"</hashtags>
 		</poi>
 		<poi>
@@ -67,8 +67,8 @@
 			<name>Radcliffe Camera</name>
 			<latitude>51.753272</latitude>
 			<longitude>-1.253945</longitude>
-			<info>Rad Cam South</info>
-			<hashtags></hashtags>
+			<info>History library and reading rooms, formerly the Radcliffe Science Library.</info>
+			<hashtags>"radcam"</hashtags>
 		</poi>
 		<poi>
 		    <name>New College</name>

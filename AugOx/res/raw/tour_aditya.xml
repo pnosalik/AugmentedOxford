@@ -1,8 +1,8 @@
 <data>
 	<meta>
 		<id>2</id>
-		<name>Test Tour Aditya</name>
-		<info>Info for Aditya's Test Tour</info>
+		<name>Test Tour Bangalore</name>
+		<info>Aditya's Test Tour in Kaikondrahalli</info>
 		<size>4</size>
 	</meta>
 	
@@ -28,14 +28,14 @@
 			<latitude>12.914659</latitude>
 			<longitude>77.672289</longitude>
 			<info>Alps Estate BR Corner</info>
-			<hashtags>blabla</hashtags>
+			<hashtags>"Bangalore"</hashtags>
 		</poi>
 		<poi>
-			<name>Lake</name>
+			<name>Kaikondrahalli Lake</name>
 			<latitude>12.916228</latitude>
 			<longitude>77.673200</longitude>
-			<info>Kaikondrahalli Lake</info>
-			<hashtags>Lake</hashtags>
+			<info>Kaikondrahalli Lake Trail</info>
+			<hashtags>Kaikondrahalli</hashtags>
 		</poi>
 		
 	</tour>

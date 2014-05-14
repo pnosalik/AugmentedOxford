@@ -131,8 +131,8 @@ public class RelativePositionSetup extends Setup {
 			final GeoObj o = new GeoObj();
 			o.setVirtualPosition(new Vec(r.nextInt(10),r.nextInt(10),0));
 			
-			o.setComp(objectFactory.newDiamond(Color.green())); //Green represents unvisited
-			
+			//o.setComp(objectFactory.newDiamond(Color.green())); //Green represents unvisited
+			o.setComp(objectFactory.newPyramid(new Vec(r.nextInt(10),r.nextInt(10),0), 4, Color.green()));
 			o.setOnClickCommand(new Command(){
 				@Override
 				public boolean execute() {

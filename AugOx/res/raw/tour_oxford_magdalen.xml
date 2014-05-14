@@ -3,15 +3,15 @@
 		<id>OXF3MAGD</id>
 		<name>Magdalen College</name>
 		<info>A tour around Magdalen College, Oxford, guiding you through the main college premises, with the freedom to stop at important locations and explore further.</info>
-		<size>15</size>
+		<size>14</size>
 	</meta>
 	
 	<tour>
 		<poi>
-			<name>Grove</name>
+			<name>Grove Buildings</name>
 			<latitude>51.753576</latitude>
 			<longitude>-1.247931</longitude>
-			<info>Grove Quad and Deer Park</info>
+			<info>Grove Quad (newest buildings in College) and the famed Deer Park</info>
 			<hashtags>"deer"</hashtags>
 		</poi>
 		<poi>
@@ -32,84 +32,77 @@
 			<name>New Buildings Lawns</name>
 			<latitude>51.752713</latitude>
 			<longitude>-1.246113</longitude>
-			<info>Lawn of New Building</info>
+			<info>CS Lewis lived in one of the rooms overlooking the lawns (look for a window with red flowers).</info>
 			<hashtags></hashtags>
 		</poi>
 		<poi>
 			<name>Centre of NB Arches</name>
 			<latitude>51.752902</latitude>
 			<longitude>-1.245962</longitude>
-			<info>Info</info>
+			<info></info>
 			<hashtags></hashtags>
 		</poi>
 		<poi>
 			<name>Path to OKB</name>
 			<latitude>51.752052</latitude>
 			<longitude>-1.245893</longitude>
-			<info>Info</info>
+			<info>Path to the oldest structure in College, goes near Addison's Walk.</info>
 			<hashtags></hashtags>
 		</poi>
 		<poi>
 			<name>Cloisters</name>
 			<latitude>51.751953</latitude>
 			<longitude>-1.246589</longitude>
-			<info>Info</info>
+			<info></info>
 			<hashtags></hashtags>
 		</poi>
 		<poi>
 			<name>Chapel Cloisters Entrance</name>
 			<latitude>51.752164</latitude>
 			<longitude>-1.247037</longitude>
-			<info>Info</info>
+			<info>Entrance to Cloisters near Magdalen Chapel, which is led by the Dean of Divinity.</info>
 			<hashtags></hashtags>
 		</poi>
 		<poi>
 			<name>St John's Quad</name>
 			<latitude>51.752161</latitude>
 			<longitude>-1.247219</longitude>
-			<info>Info</info>
-			<hashtags></hashtags>
+			<info>Entrance quad of Magdalen, formerly the site of St. John's Hospital.</info>
+			<hashtags>"magdalenoxford"</hashtags>
 		</poi>
 		<poi>
 			<name>St Swithun's Arch</name>
 			<latitude>51.752257</latitude>
 			<longitude>-1.247350</longitude>
-			<info>Info</info>
+			<info>St. Swithun's Tower contains rooms and a turret computer lab.</info>
 			<hashtags></hashtags>
 		</poi>
 		<poi>
 			<name>St Swithun's Quad Lawn</name>
 			<latitude>51.752608</latitude>
 			<longitude>-1.247608</longitude>
-			<info>Info</info>
+			<info>Magdalen's temporary library is here, while the New Library is redeveloped.</info>
 			<hashtags></hashtags>
 		</poi>
 		<poi>
 			<name>Library Entrance</name>
 			<latitude>51.752553</latitude>
 			<longitude>-1.248362</longitude>
-			<info>Info</info>
+			<info>New Library (under renovation)</info>
 			<hashtags></hashtags>
 		</poi>
 		<poi>
 			<name>Auditorium Gates</name>
 			<latitude>51.753167</latitude>
 			<longitude>-1.248305</longitude>
-			<info>Info</info>
+			<info>Magdalen Auditorium frequently hosts events open to University members or the public.</info>
 			<hashtags></hashtags>
 		</poi>
 		<poi>
 			<name>Fellows' Car Park</name>
 			<latitude>51.753981</latitude>
 			<longitude>-1.248128</longitude>
-			<info>Info</info>
-			<hashtags></hashtags>
-		</poi>
-		<poi>
-			<name>Grove</name>
-			<latitude>51.753602</latitude>
-			<longitude>-1.247946</longitude>
-			<info>Info</info>
+			<info></info>
 			<hashtags></hashtags>
 		</poi>
 	</tour>

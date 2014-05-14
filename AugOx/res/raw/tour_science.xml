@@ -1,24 +1,31 @@
 <data>
 	<meta>
 		<id>OXF1</id>
-		<name>Test Tour Oxford 2</name>
-		<info>Info for Science Quarter Test Tour in Oxford</info>
-		<size>4</size>
+		<name>Oxford Science Quarter</name>
+		<info>Info for Science Quarter Tour in Oxford</info>
+		<size>5</size>
 	</meta>
 	
 	<tour>
+	    <poi>
+			<name>Wolfson Building</name>
+			<latitude>51.759834</latitude>
+			<longitude>-1.258468</longitude>
+			<info>Department of Computer Science, formerly Computing Laboratory.</info>
+			<hashtags>"ComputerScience"</hashtags>
+		</poi>
 		<poi>
 			<name>Tony Hoare Room</name>
 			<latitude>51.758855</latitude>
 			<longitude>-1.256543</longitude>
-			<info>Some Test Data \n\n\n\n Some More Lines\n\n\n\n\n\n\n\n\n\n\n Test \n\n\n\n\n A really really really really really really really really really really really really really really really really really long sentence</info>
+			<info>Seminar room named after Sir CAR Hoare, former head of the CS dept and inventor of the quicksort.</info>
 			<hashtags>"ComputerScience"</hashtags>
 		</poi>
 		<poi>
 			<name>Natural History Museum</name>
 			<latitude>51.758594</latitude>
 			<longitude>-1.255974</longitude>
-			<info>Natural History Museum(front entrance)</info>
+			<info>The Oxford University Museum of Natural History houses the University's scientific collections of zoological, entomological and geological specimens. The Museum itself is a Grade 1 listed building, renowned for its spectacular neo-Gothic architecture. Among its most famous features are the Oxfordshire dinosaurs, the dodo, and the swifts in the tower. (Source: oum.ox.ac.uk)</info>
 			<hashtags>morethanadodo</hashtags>
 		</poi>
 		<poi>
@@ -32,8 +39,8 @@
 			<name>Robert Hooke Building</name>
 			<latitude>51.758964</latitude>
 			<longitude>-1.256401</longitude>
-			<info>Hooke Building (near the entrance)</info>
-			<hashtags>Hooke</hashtags>
-		</poi>
+			<info>Part of the CS dept, named after scientist and microbiology pioneer Robert Hooke.</info>
+			<hashtags>""Hooke"</hashtags>
+		</poi>		
 	</tour>
-	</data>
+</data>

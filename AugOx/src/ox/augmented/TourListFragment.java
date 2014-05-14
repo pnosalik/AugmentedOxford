@@ -302,7 +302,23 @@ public class TourListFragment extends ListFragment {
 	AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());	
 	View view = View.inflate(getActivity(), R.layout.help_layout, null);
 	builder.setView(view);
-	builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+	builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+		
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			// TODO Auto-generated method stub - button can simply close dialog
+		}
+	});
+	AlertDialog dialog = builder.create();
+	dialog.show();
+	}
+	
+	/* Display About dialog screen */
+	private void about() {
+	AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());	
+	View view = View.inflate(getActivity(), R.layout.about_layout, null);
+	builder.setView(view);
+	builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 		
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
@@ -334,6 +350,11 @@ public class TourListFragment extends ListFragment {
 			help();
 			// display message
 			Toast.makeText(getActivity(), "Help", Toast.LENGTH_SHORT).show();
+			break;
+		case R.id.action_about:
+			about();
+			// display message
+			//Toast.makeText(getActivity(), "About", Toast.LENGTH_SHORT).show();
 			break;
 		}
 	/*	}

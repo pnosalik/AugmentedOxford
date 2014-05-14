@@ -103,6 +103,22 @@ public class TourDetailFragment extends Fragment {
 					}
 				});
 			
+			// button to start demo tour, using RelativePositionSetup
+			((Button) rootView.findViewById(R.id.tour_detail_button_start_relative))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						//CustomARSetup custom = new CustomARSetup();
+						RelativePositionSetup custom = new RelativePositionSetup(); //For Poi markers which don't use GPS coordinates
+						//custom.context = currentActivity;
+						//edited to use getActivity(), avoiding NPEs when restarting tour, when currentActivity is not initialised 
+						custom.context = getActivity();
+						currentActivity = getActivity();
+						custom.setTour(mItem);
+						ArActivity.startWithSetup(currentActivity, custom); 
+					}
+				});
+
 		}
 		return rootView;
 	}

@@ -41,12 +41,26 @@
 	    android:padding="8dp"
 	    android:textIsSelectable="true" />
 	
+	<Button
+	    android:id="@+id/tour_detail_button_start_relative"
+	    style="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+   	    android:background="@drawable/button_blue"
+        android:textColor="@color/actionbar_text"
+        android:paddingTop="2dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        android:paddingLeft="2dp"
+        android:layout_below="@id/tour_detail_info"
+        android:text="@string/text_tour_detail_button_start_relative"></Button>
+	
 	<TextView 
 	    android:id="@+id/tour_detail_heading_pois"
 	    style="?android:attr/textAppearanceMedium"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_below="@id/tour_detail_info"
+	    android:layout_below="@id/tour_detail_button_start_relative"
 	    android:padding="8dp"
 	    android:textIsSelectable="true" />
 	<!-- android:text="@string/text_tour_detail_heading_pois" -->
@@ -58,7 +72,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_below="@id/tour_detail_heading_pois"
 	    android:padding="8dp"
-	    android:textIsSelectable="true" />
-	
+	    android:textIsSelectable="true"></TextView>
+
 </RelativeLayout>
 
